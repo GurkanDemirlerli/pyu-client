@@ -1,0 +1,85 @@
+<div class="sidebar"  [@sideMenuAnime]='menuState'>
+
+  <div class="logobar-wrapper">
+    <div class="logobar">
+      <span [@minilogoAnime]='menuState'>GÜRKAN</span>
+    </div>
+  </div>
+
+  <div class="avatar-wrapper">
+    <div class="avatar"  [@avatarAnime]='menuState' [style.background-image]="'url(' +'assets/profilepicture.png' + ')'">
+    </div>
+  </div>
+
+
+  <div class="menu-actions" >
+    <div class="menu-action"  [routerLink]="['/pages/schedules']" routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faCalendarAlt"></fa-icon>
+      </div>
+      <div class="content">
+        Çizelgeler
+      </div>
+    </div>
+
+    <div class="menu-action" [routerLink]="['/pages/faculties']"
+      routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faSchool"></fa-icon>
+      </div>
+      <div class="content">
+        Fakülteler
+      </div>
+    </div>
+
+    <div  class="menu-action" [routerLink]="['/pages/departments']"
+      routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faBuilding"></fa-icon>
+      </div>
+      <div class="content">
+        Bölümler
+      </div>
+    </div>
+    <div class="menu-action"  [routerLink]="['/pages/lessons']" routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faBookOpen"></fa-icon>
+      </div>
+      <a class="content">
+        Dersler
+      </a>
+    </div>
+    <div class="menu-action"
+      [routerLink]="['/pages/constraints']" routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faUserLock"></fa-icon>
+      </div>
+      <div class="content">
+        Kısıtlar
+      </div>
+    </div>
+
+    <div class="menu-action"  [routerLink]="['/pages/instructors']" routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faUsers"></fa-icon>
+      </div>
+      <a class="content">
+        Kullanıcılar
+      </a>
+    </div>
+    <div class="menu-action" [routerLink]="['/pages/locations']"
+      routerLinkActive="active">
+      <div class="logo">
+        <fa-icon [icon]="icons.faMapMarkedAlt"></fa-icon>
+      </div>
+      <a class="content">
+        Derslikler
+      </a>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="sidebar-holder" [@sideMenuAnime]='menuState'>
+</div>
