@@ -92,7 +92,7 @@
   left: 10%;
   height: 40px;
   background: rgb(179, 175, 255);
-  background: linear-gradient(90deg, $color-green-4 0%, $color-green-4 100%);
+  background: linear-gradient(90deg, $color-green-2 0%, $color-green-4 100%);
   border-radius: 20px;
 
   &-wrapper {
@@ -116,10 +116,11 @@ fa-icon {
 }
 
 .avatar {
-  transition: 0.4s;
-  transition-timing-function: ease;
+  // transition: 0.4s;
+  // transition-timing-function: ease;
   // min-width: 80px;
   // min-height: 80px;
+  display: flex;
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -127,9 +128,8 @@ fa-icon {
   background-position: center;
   border: 2px solid $color-green-2;
   margin-right: 1rem;
-
   &-wrapper {
-    flex: 1;
+    // flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

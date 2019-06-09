@@ -2,49 +2,62 @@
   <div class="app-nav-content">
 
     <!--MENU TOGGLE-->
-    <div class="menu-toggle" (click)="toggleMenu()"  [@menuToggle]='menuState' >
+    <div class="menu-toggle" (click)="toggleMenu()" [@menuToggle]='menuState'>
       <fa-icon [icon]="icons.faBars"></fa-icon>
     </div>
-    <!--LOGO-->
-    <div class="logo-wrapper">
-      <img class="logo" src="assets/logo.png" alt="">
-    </div>
-
 
     <div class="content-wrapper">
 
-      <!--ACTIONS-->
-      <!-- <div class="actions">
-        <div class="action">
-          New
-        </div>
-      </div> -->
-
-      <div class="search-wrapper">
-        <fa-icon [icon]="icons.faSearch"></fa-icon>
-        <input type="text" class="search" placeholder="Ara">
+      <!--LOGO-->
+      <div class="logo-wrapper">
+        <img class="logo" src="assets/logo.png" alt="">
       </div>
 
-      <!--AUTH-->
-      <div class="auth-wrapper">
-        <!-- <div class="auth-action">
-          <div class="auth-action-logo">
-            <fa-icon [icon]="icons.faSignInAlt"></fa-icon>
+      <div class="actions" >
+        <div class="search-wrapper">
+          <fa-icon [icon]="icons.faSearch"></fa-icon>
+          <input type="text" class="search" placeholder="Ara">
+        </div>
+
+        <!--AUTH-->
+        <div class="auth-wrapper">
+
+          <div class="auth-action" (click)="onLogoutClick()">
+            <div class="auth-action-logo">
+              <fa-icon [icon]="icons.faSignOutAlt"></fa-icon>
+            </div>
+            <div class="auth-action-content">
+              Çıkış Yap
+            </div>
           </div>
-          <div class="auth-action-content">
-            Login
-          </div>
-        </div> -->
-        <div class="auth-action" (click)="onLogoutClick()">
-          <div class="auth-action-logo">
-            <fa-icon [icon]="icons.faSignOutAlt"></fa-icon>
-          </div>
-          <div class="auth-action-content">
-            Çıkış Yap
-          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="header-toggle" (click)="toggleHeader()" [@headerToggle]='headerState'>
+      <fa-icon [icon]="icons.faCaretSquareDown"></fa-icon>
+    </div>
+
+  </div>
+
+  <div class="extended" *ngIf="headerIsOpen" [class.open]="headerIsOpen">
+    <div class="search-wrapper extend">
+      <fa-icon [icon]="icons.faSearch"></fa-icon>
+      <input type="text" class="search" placeholder="Ara">
+    </div>
+
+    <!--AUTH-->
+    <div class="auth-wrapper">
+
+      <div class="auth-action" (click)="onLogoutClick()">
+        <div class="auth-action-logo">
+          <fa-icon [icon]="icons.faSignOutAlt"></fa-icon>
+        </div>
+        <div class="auth-action-content">
+          Çıkış Yap
         </div>
       </div>
     </div>
-
   </div>
 </nav>
