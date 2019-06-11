@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, HostListener } from '@angular/core';
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface,
   SwiperScrollbarInterface, SwiperPaginationInterface
 } from 'ngx-swiper-wrapper';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   public show: boolean = true;
   public type: string = 'directive';
 
   public disabled: boolean = false;
-
+  private observer: IntersectionObserver;
   public slides = [
     'First slide',
     'Second slide',
@@ -31,7 +33,9 @@ export class DashboardComponent implements OnInit {
     mousewheel: true,
     scrollbar: false,
     navigation: true,
-    pagination: false
+    pagination: false,
+    grabCursor: true,
+    allowTouchMove: false
   };
   private scrollbar: SwiperScrollbarInterface = {
     el: '.swiper-scrollbar',
@@ -45,13 +49,58 @@ export class DashboardComponent implements OnInit {
     hideOnClick: false
   };
 
+  todo = [
+    'Get to work',
+    'Pick up groceries',
+    'Go home',
+    'Fall asleep'
+  ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog',
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll(event) {
+    this.statusHeaderEl.forEach((div) => {
+      if (div.nativeElement.offsetTop > 89) {
+        div.nativeElement.className = 'status-header status-header-mini';
+      }
+      else {
+        div.nativeElement.className = 'status-header';
+
+      }
+    });
+  }
+  @ViewChildren('statusHeader') statusHeaderEl: QueryList<ElementRef>;
   @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
   @ViewChild(SwiperDirective, { static: false }) directiveRef?: SwiperDirective;
 
   constructor() { }
 
+  ngAfterViewInit() {
+
+  }
   ngOnInit() {
-    // var swiper = new Swiper('.swiper-container');
   }
   public toggleType(): void {
     this.type = (this.type === 'component') ? 'directive' : 'component';

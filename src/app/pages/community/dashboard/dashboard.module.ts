@@ -7,6 +7,8 @@ import {
   SwiperModule, SwiperConfigInterface,
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ComponentsModule } from 'src/app/theme/components/components.module';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -28,6 +30,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CommonModule,
     FontAwesomeModule,
     FormsModule,
+    DragDropModule,
+    ComponentsModule
   ],
   exports: [],
   providers: [{
