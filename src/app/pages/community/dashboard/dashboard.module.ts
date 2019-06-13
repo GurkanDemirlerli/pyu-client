@@ -10,6 +10,7 @@ import {
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentsModule } from 'src/app/theme/components/components.module';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   // observer: true,
@@ -32,7 +33,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FormsModule,
     DragDropModule,
     ComponentsModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    BreadcrumbModule,
   ],
   exports: [],
   providers: [{

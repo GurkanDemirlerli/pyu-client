@@ -1,51 +1,58 @@
-<!-- <ng-scrollbar #scrollable [invertX]="invertX" [invertY]="invertY" [trackX]="true" [compact]="compact" [shown]="shown" [disableOnBreakpoints]="false" [disabled]="dissco"> -->
-<div #statusList class="status-list" cdkDropListGroup>
-  <div class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')"
-    (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-    <div class="swiper-wrapper" (click)="upd()">
-      <div class="swiper-slide">
+<div class="wrpr">
 
-        <pyu-status-panel [statusId]=1></pyu-status-panel>
-      </div>
-      <div class="swiper-slide">
-
-        <pyu-status-panel [statusId]=2></pyu-status-panel>
-      </div>
-      <div class="swiper-slide">
-
-        <pyu-status-panel [statusId]=3></pyu-status-panel>
-      </div>
-      <div class="swiper-slide">
-
-        <pyu-status-panel [statusId]=4></pyu-status-panel>
-      </div>
-      <div class="swiper-slide">
-
-        <pyu-status-panel [statusId]=5></pyu-status-panel>
-      </div>
-      <div class="swiper-slide">
-
-        <pyu-status-panel [statusId]=6></pyu-status-panel>
-      </div>
-    </div>
-
-    <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
-    <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
-
-    <div class="swiper-button-prev swpb" [hidden]="config.navigation === false">
-      <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
-    </div>
-    <div class="swiper-button-next swpb" [hidden]="config.navigation === false">
-      <fa-icon [icon]="icons.faChevronRight"></fa-icon>
-    </div>
+  <div #top class="top">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Library</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Data</li>
+      </ol>
+    </nav>
   </div>
-  <!-- <pyu-status-panel [statusId]=2></pyu-status-panel>
-    <pyu-status-panel [statusId]=3></pyu-status-panel>
-    <pyu-status-panel [statusId]=4></pyu-status-panel>
-    <pyu-status-panel [statusId]=5></pyu-status-panel>
-    <pyu-status-panel [statusId]=6></pyu-status-panel> -->
 
+  <div #statusList class="status-list" cdkDropListGroup>
+    <div class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
+      <div class="swiper-wrapper" (click)="upd()">
+        <div class="swiper-slide">
 
+          <pyu-status-panel [statusId]=1></pyu-status-panel>
+        </div>
+        <div class="swiper-slide">
+
+          <pyu-status-panel [statusId]=2></pyu-status-panel>
+        </div>
+        <div class="swiper-slide">
+
+          <pyu-status-panel [statusId]=3></pyu-status-panel>
+        </div>
+        <div class="swiper-slide">
+
+          <pyu-status-panel [statusId]=4></pyu-status-panel>
+        </div>
+        <div class="swiper-slide">
+
+          <pyu-status-panel [statusId]=5></pyu-status-panel>
+        </div>
+        <div class="swiper-slide">
+
+          <pyu-status-panel [statusId]=6></pyu-status-panel>
+        </div>
+      </div>
+
+      <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
+      <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
+
+      <div class="swiper-button-prev swpb" [hidden]="config.navigation === false">
+        <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
+      </div>
+      <div class="swiper-button-next swpb" [hidden]="config.navigation === false">
+        <fa-icon [icon]="icons.faChevronRight"></fa-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+
+  </div>
 </div>
-
-<!-- </ng-scrollbar> -->

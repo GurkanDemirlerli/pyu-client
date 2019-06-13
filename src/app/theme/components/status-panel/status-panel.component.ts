@@ -10,9 +10,9 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class StatusPanelComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
-    console.log("init");
-      let y = (this.wrapperEl.nativeElement.offsetHeight -75)+ 'px';
-      this.renderer.setElementStyle(this.listEl.nativeElement, 'height',y);
+    // console.log("init");
+    //   let y = (this.wrapperEl.nativeElement.offsetHeight -75)+ 'px';
+    //   this.renderer.setElementStyle(this.listEl.nativeElement, 'height',y);
   }
 
   @Input() statusId: number;

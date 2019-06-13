@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { StatusPanelComponent } from './status-panel/status-panel.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FontAwesomeModule,
     RouterModule,
     DragDropModule,
+    NgScrollbarModule,
 
   ],
   exports: [

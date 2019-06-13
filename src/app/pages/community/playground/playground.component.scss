@@ -1,0 +1,18 @@
+.content{
+    padding:0;
+    overflow: scroll; overflow-x:hidden;
+    height:100%
+    /*-webkit-overflow-scrolling: touch;*/
+}
+span{
+     padding:4em 0 0 0;
+    display:inline-block
+}
+
+.page{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 25%;
+    display: block; border:solid #000 1px
+}
