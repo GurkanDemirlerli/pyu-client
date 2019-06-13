@@ -1,4 +1,4 @@
-<div class="sidebar"  [@sideMenuAnime]='menuState'>
+<div class="sidebar"  [@sideMenuAnime]='menuState' (@sideMenuAnime.start)="animationStart($event)">
 
   <div class="logobar-wrapper">
     <div class="logobar">
@@ -15,65 +15,65 @@
   <div class="menu-actions" >
     <div class="menu-action"  [routerLink]="['/pages/schedules']" routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faCalendarAlt"></fa-icon>
+        <fa-icon [icon]="icons.faColumns"></fa-icon>
       </div>
       <div class="content">
-        Çizelgeler
+        Dashboard
       </div>
     </div>
 
     <div class="menu-action" [routerLink]="['/pages/faculties']"
       routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faSchool"></fa-icon>
+        <fa-icon [icon]="icons.faTasks"></fa-icon>
       </div>
       <div class="content">
-        Fakülteler
+        Projects
       </div>
     </div>
 
     <div  class="menu-action" [routerLink]="['/pages/departments']"
       routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faBuilding"></fa-icon>
+        <fa-icon [icon]="icons.faCalendarAlt"></fa-icon>
       </div>
       <div class="content">
-        Bölümler
+        Calendar
       </div>
     </div>
     <div class="menu-action"  [routerLink]="['/pages/lessons']" routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faBookOpen"></fa-icon>
+        <fa-icon [icon]="icons.faUndoAlt"></fa-icon>
       </div>
       <a class="content">
-        Dersler
+        History
       </a>
     </div>
     <div class="menu-action"
       [routerLink]="['/pages/constraints']" routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faUserLock"></fa-icon>
+        <fa-icon [icon]="icons.faUsers"></fa-icon>
       </div>
       <div class="content">
-        Kısıtlar
+        Negotiation
       </div>
     </div>
 
     <div class="menu-action"  [routerLink]="['/pages/instructors']" routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faUsers"></fa-icon>
+        <fa-icon [icon]="icons.faQuestion"></fa-icon>
       </div>
       <a class="content">
-        Kullanıcılar
+        Q/A
       </a>
     </div>
     <div class="menu-action" [routerLink]="['/pages/locations']"
       routerLinkActive="active">
       <div class="logo">
-        <fa-icon [icon]="icons.faMapMarkedAlt"></fa-icon>
+        <fa-icon [icon]="icons.faExclamationTriangle"></fa-icon>
       </div>
       <a class="content">
-        Derslikler
+        Issues
       </a>
     </div>
 

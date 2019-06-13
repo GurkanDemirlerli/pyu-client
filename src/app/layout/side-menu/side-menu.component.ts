@@ -1,6 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { faUserLock, faBuilding, faSchool, faMapMarkedAlt, faBookOpen, faAddressBook, faFeather, faAdjust, faHome, faProjectDiagram, faCalendarAlt, faUndoAlt, faUsers, faQuestion, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUserLock,
+  faBuilding,
+  faSchool,
+  faMapMarkedAlt,
+  faBookOpen,
+  faAddressBook,
+  faFeather,
+  faAdjust,
+  faHome,
+  faProjectDiagram,
+  faCalendarAlt,
+  faUndoAlt,
+  faUsers,
+  faQuestion,
+  faExclamationTriangle,
+  faColumns,
+  faTasks
+} from '@fortawesome/free-solid-svg-icons';
 import { MenuService } from '../services/menu.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
@@ -53,7 +71,9 @@ export class SideMenuComponent implements OnInit {
     faExclamationTriangle,
     faAddressBook,
     faFeather,
-    faAdjust
+    faAdjust,
+    faColumns,
+    faTasks
   }
   constructor(private menuService: MenuService, public breakpointObserver: BreakpointObserver) { }
 
@@ -76,6 +96,7 @@ export class SideMenuComponent implements OnInit {
         }
       });
 
+
     this.menuService.isMax$.subscribe((menuState) => {
       this.isMax = menuState;
       if (this.isMobile)
@@ -83,6 +104,10 @@ export class SideMenuComponent implements OnInit {
       else
         this.menuState = (this.isMax === true) ? 'open' : 'collapsed';
     });
+  }
+  animationStart($event) {
+    this.menuService.emitAnimationStart();
+    console.log('End');
   }
 
 }

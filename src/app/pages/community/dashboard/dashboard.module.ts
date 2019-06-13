@@ -9,15 +9,15 @@ import {
 } from 'ngx-swiper-wrapper';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentsModule } from 'src/app/theme/components/components.module';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  observer: true,
-  direction: 'horizontal',
-  threshold: 50,
-  spaceBetween: 5,
-  slidesPerView: 1,
-  centeredSlides: true
+  // observer: true,
+  // direction: 'horizontal',
+  // threshold: 50,
+  // spaceBetween: 5,
+  // slidesPerView: 1,
+  // centeredSlides: true
 };
 
 
@@ -31,7 +31,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FontAwesomeModule,
     FormsModule,
     DragDropModule,
-    ComponentsModule
+    ComponentsModule,
+    NgScrollbarModule
   ],
   exports: [],
   providers: [{

@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { TaskCardComponent } from './task-card/task-card.component';
+import { StatusPanelComponent } from './status-panel/status-panel.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    TaskCardComponent
+    TaskCardComponent,
+    StatusPanelComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    DragDropModule,
+
   ],
   exports: [
-    TaskCardComponent
+    TaskCardComponent,
+    StatusPanelComponent
   ],
   providers: [
   ],

@@ -7,8 +7,14 @@ export class MenuService {
 
     isMax = new BehaviorSubject<boolean>(false);
     isMax$ = this.isMax.asObservable();
+    animationStart = new BehaviorSubject<boolean>(true);
+    animationStart$ = this.animationStart.asObservable();
 
     toggleMenuSize(size: boolean): void {
         this.isMax.next(size);
+    }
+
+    emitAnimationStart():void{
+        this.animationStart.next(!this.animationStart);
     }
 }
