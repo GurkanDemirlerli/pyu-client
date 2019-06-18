@@ -6,11 +6,13 @@ import { TaskCardComponent } from './task-card/task-card.component';
 import { StatusPanelComponent } from './status-panel/status-panel.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { StatusSummaryBarComponent } from './status-summary-bar/status-summary-bar.component';
 
 @NgModule({
   declarations: [
     TaskCardComponent,
-    StatusPanelComponent
+    StatusPanelComponent,
+    StatusSummaryBarComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   ],
   exports: [
     TaskCardComponent,
-    StatusPanelComponent
+    StatusPanelComponent,
+    StatusSummaryBarComponent
   ],
   providers: [
   ],

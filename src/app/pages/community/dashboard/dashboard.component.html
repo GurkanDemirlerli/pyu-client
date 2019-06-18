@@ -1,13 +1,50 @@
 <div class="wrpr">
 
   <div #top class="top">
+
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
+        <li class="breadcrumb-item"><a href="#">Company Name</a></li>
+        <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Project Name</li>
       </ol>
     </nav>
+
+    <div class="row">
+
+      <div class="project-options">
+        <div class="project-options-item">
+          <div class="project-options-item-logo">
+            <fa-icon [icon]="icons.faFilter"></fa-icon>
+          </div>
+          <span class="project-options-item-content">
+            Filter
+          </span>
+        </div>
+        <div class="project-options-item">
+          <div class="project-options-item-logo">
+            <fa-icon [icon]="icons.faPlus"></fa-icon>
+          </div>
+          <span class="project-options-item-content">
+            New
+          </span>
+        </div>
+        <div class="project-options-item">
+          <div class="project-options-item-logo">
+            <fa-icon [icon]="icons.faChartLine"></fa-icon>
+          </div>
+          <span class="project-options-item-content">
+            Statistics
+          </span>
+        </div>
+      </div>
+
+      <!-- <pyu-status-summary-bar>
+
+      </pyu-status-summary-bar> -->
+
+    </div>
+
   </div>
 
   <div #statusList class="status-list" cdkDropListGroup>

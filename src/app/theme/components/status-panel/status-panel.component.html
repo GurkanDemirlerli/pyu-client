@@ -3,7 +3,7 @@
     Status
   </div>
 
-  <ng-scrollbar #scrollable [invertX]="invertX" [invertY]="invertY" [trackX]="true" [compact]="compact" [shown]="shown" [disableOnBreakpoints]="false">
+  <ng-scrollbar #scrollable [invertX]="invertX" [invertY]="invertY" [trackX]="true" [compact]="compact" [shown]="shown" [disableOnBreakpoints]="true">
     <div id={{statusId}} cdkDropList #listo [cdkDropListData]="items" class="example-list swiper-no-swiping" (cdkDropListDropped)="drop($event)">
 
       <div class="example-box" *ngFor="let item of items" cdkDrag>

@@ -79,20 +79,22 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserver
-      .observe(['(min-width: 768px)'])
+      .observe(['(max-width: 768px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          this.isMobile = false;
-          this.menuService.toggleMenuSize(true);
-          this.isMax = true;
-          this.menuState = 'open';
-          console.log("big");
-        } else {
+
           this.isMobile = true;
           this.menuService.toggleMenuSize(false);
           this.isMax = false;
           this.menuState = 'hidden';
           console.log("small");
+        } else {
+          this.isMobile = false;
+          this.menuService.toggleMenuSize(false);
+          this.isMax = false;
+          this.menuState = 'collapsed';
+          console.log("big");
+
         }
       });
 

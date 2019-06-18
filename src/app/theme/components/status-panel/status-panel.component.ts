@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, HostBinding, AfterViewInit, Renderer, ViewChildren, QueryList, DoCheck, OnChanges, HostListener } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'pyu-status-panel',
@@ -8,22 +8,28 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./status-panel.component.scss']
 })
 export class StatusPanelComponent implements OnInit, AfterViewInit {
-
+  deviceInfo = null;
   ngAfterViewInit(): void {
-    // console.log("init");
-    //   let y = (this.wrapperEl.nativeElement.offsetHeight -75)+ 'px';
-    //   this.renderer.setElementStyle(this.listEl.nativeElement, 'height',y);
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    const isDesktopDevice = this.deviceService.isDesktop();
+
+    if (isMobile || isTablet) {
+      let x = this.elRef.nativeElement.querySelectorAll('.ng-scroll-view');
+      x[0].style.width = 'calc(100% + 5px)';
+    }
   }
 
   @Input() statusId: number;
 
   items = [
-    1, 2, 3, 4, 5, 6, 7, 8
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
   ];
   @ViewChild('wrapper', { static: false }) wrapperEl: ElementRef;
-  @ViewChild('listo', {static:false}) listEl: ElementRef;
+  @ViewChild('listo', { static: false }) listEl: ElementRef;
 
-  constructor(private elRef: ElementRef, private renderer: Renderer) { }
+  constructor(private elRef: ElementRef, private renderer: Renderer, private deviceService: DeviceDetectorService) { }
 
   swipeLeft() {
     let amount = this.wrapperEl.nativeElement.offsetWidth;

@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, HostListener, NgZone, OnDestroy, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer } from '@angular/core';
 import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface,
-  SwiperScrollbarInterface, SwiperPaginationInterface
+  SwiperComponent, SwiperDirective, SwiperConfigInterface
 } from 'ngx-swiper-wrapper';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { StatusPanelComponent } from 'src/app/theme/components/status-panel/status-panel.component';
 import { Subject, Subscription } from 'rxjs';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { MenuService } from 'src/app/layout/services/menu.service';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { faChevronLeft, faChevronRight, faColumns, faFilter, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -55,20 +52,33 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         slidesPerView: 1,
         spaceBetween: 10
       },
-      480: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
       640: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      900: {
         slidesPerView: 2,
-        spaceBetween: 30
-      }
+        spaceBetween: 10
+      },
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 10
+      },
+      1500: {
+        slidesPerView: 4,
+        spaceBetween: 10
+      },
+
     }
   };
 
   icons = {
     faChevronLeft,
-    faChevronRight
+    faChevronRight,
+    faColumns,
+    faFilter,
+    faPlus,
+    faChartLine
   }
 
   @ViewChildren('statusHeader') statusHeaderEl: QueryList<ElementRef>;
