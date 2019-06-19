@@ -21,7 +21,7 @@
             Filter
           </span>
         </div>
-        <div class="project-options-item">
+        <div class="project-options-item" (click)="showAddTaskModal()">
           <div class="project-options-item-logo">
             <fa-icon [icon]="icons.faPlus"></fa-icon>
           </div>
@@ -48,41 +48,40 @@
   </div>
 
   <div #statusList class="status-list" cdkDropListGroup>
-    <div class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-      <div class="swiper-wrapper" (click)="upd()">
-        <div class="swiper-slide">
-
+    <div class="swiper-container"
+      [swiper]="swiperConfig"
+    >
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let st of project.statuses">
+          <pyu-status-panel [status]=st></pyu-status-panel>
+        </div>
+        <!-- <div class="swiper-slide">
           <pyu-status-panel [statusId]=1></pyu-status-panel>
         </div>
         <div class="swiper-slide">
-
           <pyu-status-panel [statusId]=2></pyu-status-panel>
         </div>
         <div class="swiper-slide">
-
           <pyu-status-panel [statusId]=3></pyu-status-panel>
         </div>
         <div class="swiper-slide">
-
           <pyu-status-panel [statusId]=4></pyu-status-panel>
         </div>
         <div class="swiper-slide">
-
           <pyu-status-panel [statusId]=5></pyu-status-panel>
         </div>
         <div class="swiper-slide">
-
           <pyu-status-panel [statusId]=6></pyu-status-panel>
-        </div>
+        </div> -->
       </div>
 
-      <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
-      <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
+      <!-- <div class="swiper-scrollbar" ></div> -->
+      <div class="swiper-pagination"></div>
 
-      <div class="swiper-button-prev swpb" [hidden]="config.navigation === false">
+      <div class="swiper-button-prev swpb" >
         <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
       </div>
-      <div class="swiper-button-next swpb" [hidden]="config.navigation === false">
+      <div class="swiper-button-next swpb">
         <fa-icon [icon]="icons.faChevronRight"></fa-icon>
       </div>
     </div>

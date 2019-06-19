@@ -9,10 +9,16 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpConfigInterceptor } from './interceptors/httpconfig.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import { AddTaskModalComponent } from './theme/components/add-task-modal/add-task-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddTaskModalComponent
   ],
   imports: [
     BrowserModule,
@@ -20,9 +26,16 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     DeviceDetectorModule.forRoot(),
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    BsDropdownModule.forRoot()
   ],
+  entryComponents: [AddTaskModalComponent],
   providers: [
+    BsModalRef,
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],

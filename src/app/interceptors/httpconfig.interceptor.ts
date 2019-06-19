@@ -41,7 +41,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse) {
           try {
-            this.toasterService.error(err.error.message, err.error.title, { positionClass: 'toast-bottom-center' });
+            let msg = 'An error occured';
+            let title = '';
+            if (err.error && err.error.message)
+              msg = err.error.message;
+            if (err.error && err.error.title)
+              title = err.error.title;
+            this.toasterService.error(msg, title, { positionClass: 'toast-bottom-center' });
           } catch (e) {
             this.toasterService.error('An error occurred', '', { positionClass: 'toast-bottom-center' });
           }

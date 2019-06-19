@@ -21,13 +21,12 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @Input() statusId: number;
+  @Input() status: any;
 
   items = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
   ];
   @ViewChild('wrapper', { static: false }) wrapperEl: ElementRef;
-  @ViewChild('listo', { static: false }) listEl: ElementRef;
 
   constructor(private elRef: ElementRef, private renderer: Renderer, private deviceService: DeviceDetectorService) { }
 
@@ -42,7 +41,6 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this.statusId);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -54,11 +52,5 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
         event.previousIndex,
         event.currentIndex);
     }
-    console.log(this.wrapperEl);
   }
-
-  msd() {
-    console.log("pressed");
-  }
-
 }

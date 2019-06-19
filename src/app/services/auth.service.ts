@@ -7,27 +7,24 @@ import { catchError, tap } from 'rxjs/operators';
 })
 
 export class AuthService {
-  private domain = server.url + "/";
-  public userInfo: any;
-  constructor(private http:HttpClient) { }
+  private domain = server.url + "/api/";
+  constructor(private http: HttpClient) { }
 
-  login(){
+  login() {
     const credentials = {
       email: "gurkan@example.com",
       password: "Password123."
     }
     return this.http.post<any>(this.domain + 'users/login', credentials)
-    .pipe(
+      .pipe(
         tap((res) => {
-            this.storeUserData(res.data.token,res.data.userInfo);
-            this.userInfo = res.data.userInfo;
+          this.storeUserData(res.data.token, res.data.userInfo);
         }),
     );
   }
 
   private storeUserData(token: string, userInfo) {
     localStorage.setItem('token', token);
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-}
+  }
 
 }

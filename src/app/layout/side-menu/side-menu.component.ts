@@ -87,14 +87,11 @@ export class SideMenuComponent implements OnInit {
           this.menuService.toggleMenuSize(false);
           this.isMax = false;
           this.menuState = 'hidden';
-          console.log("small");
         } else {
           this.isMobile = false;
           this.menuService.toggleMenuSize(false);
           this.isMax = false;
           this.menuState = 'collapsed';
-          console.log("big");
-
         }
       });
 
@@ -107,9 +104,8 @@ export class SideMenuComponent implements OnInit {
         this.menuState = (this.isMax === true) ? 'open' : 'collapsed';
     });
   }
-  animationStart($event) {
+  animationStart(_$event: any) {
     this.menuService.emitAnimationStart();
-    console.log('End');
   }
 
 }

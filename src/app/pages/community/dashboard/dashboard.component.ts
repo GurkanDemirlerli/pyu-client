@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface
+  SwiperDirective
 } from 'ngx-swiper-wrapper';
-import { StatusPanelComponent } from 'src/app/theme/components/status-panel/status-panel.component';
-import { Subject, Subscription } from 'rxjs';
-import { NgScrollbar } from 'ngx-scrollbar';
+import { Subscription } from 'rxjs';
 import { MenuService } from 'src/app/layout/services/menu.service';
 import { faChevronLeft, faChevronRight, faColumns, faFilter, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AddTaskModalComponent } from 'src/app/theme/components/add-task-modal/add-task-modal.component';
+import { ActivatedRoute } from '@angular/router';
+import { swiperConfig } from './swiper.config';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,63 +16,11 @@ import { faChevronLeft, faChevronRight, faColumns, faFilter, faPlus, faChartLine
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
-
-
-
-  dissco = false;
-  size$ = new Subject();
+  project: any;
+  errorMessage: string;
+  bsModalRef: BsModalRef;
   unsubscriber$ = Subscription.EMPTY;
-  public show: boolean = true;
-  public type: string = 'directive';
-
-  public disabled: boolean = false;
-  public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
-  ];
-
-  public config: SwiperConfigInterface = {
-    a11y: true,
-    direction: 'horizontal',
-    slidesPerView: 5,
-    keyboard: true,
-    // mousewheel: true,
-    scrollbar: false,
-    navigation: true,
-    pagination: false,
-    // grabCursor: true,
-    allowTouchMove: true,
-    roundLengths: true,
-    touchMoveStopPropagation: false,
-    spaceBetween: 15,
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 10
-      },
-      640: {
-        slidesPerView: 1,
-        spaceBetween: 10
-      },
-      900: {
-        slidesPerView: 2,
-        spaceBetween: 10
-      },
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 10
-      },
-      1500: {
-        slidesPerView: 4,
-        spaceBetween: 10
-      },
-
-    }
-  };
+  swiperConfig = swiperConfig;
 
   icons = {
     faChevronLeft,
@@ -81,39 +31,40 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     faChartLine
   }
 
-  @ViewChildren('statusHeader') statusHeaderEl: QueryList<ElementRef>;
-  @ViewChild('statusList', { static: false }) statusListEl: ElementRef;
-  @ViewChild('top', { static: false }) topEl: ElementRef;
+  @ViewChild(SwiperDirective, { static: false }) swiperRef?: SwiperDirective;
 
-  @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
-  @ViewChild(SwiperDirective, { static: false }) directiveRef?: SwiperDirective;
-  @ViewChildren(StatusPanelComponent) statusPanelRefs: QueryList<StatusPanelComponent>;
-  @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
+  constructor(
+    private menuService: MenuService,
+    private modalService: BsModalService,
+    private route: ActivatedRoute
+  ) { }
 
-  constructor(private ngZone: NgZone, private menuService: MenuService, private renderer: Renderer) { }
+  showAddTaskModal() {
+    const initialState = {
+      projectId: this.project.id,
+      statuses: this.project.statuses
+    };
+    this.bsModalRef = this.modalService.show(AddTaskModalComponent, { initialState });
+  }
 
   ngAfterViewInit() {
     this.menuService.animationStart$.subscribe((x) => {
-      console.log("AAAA");
       for (let i = 0; i < 1000; i = i + 100) {
         setTimeout(() => {
-          this.directiveRef.update();
+          this.swiperRef.update();
         }, i);
       }
     });
-    // this.renderer.setElementStyle(this.statusListEl.nativeElement, 'height', (this.statusListEl.nativeElement.offsetHeight - this.topEl.nativeElement.offsetHeight)+'px');
   }
 
   ngOnInit() {
-
+    const resolvedData = this.route.snapshot.data['resolvedData'];
+    this.errorMessage = resolvedData.error;
+    this.onDataRetrieved(resolvedData.project);
   }
 
-  public onIndexChange(index: number): void {
-    console.log('Swiper index: ', index);
-  }
-
-  public onSwiperEvent(event: string): void {
-    console.log('Swiper event: ', event);
+  onDataRetrieved(project: any) {
+    this.project = project;
   }
 
   ngOnDestroy() {
