@@ -2,14 +2,14 @@
 
   <div #top class="top">
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
+      <ol class="breadcrumb my-brc">
         <li class="breadcrumb-item"><a href="#">Company Name</a></li>
         <li class="breadcrumb-item"><a href="#">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Project Name</li>
       </ol>
     </nav>
 
-    <div class="row">
+    <div class="row options-wrapper">
 
       <div class="project-options">
         <div class="project-options-item">
@@ -59,10 +59,10 @@
 
       <div class="swiper-pagination"></div>
 
-      <div class="swiper-button-prev swpb" >
+      <div class="swiper-button-prev swpb" style="left:0" >
         <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
       </div>
-      <div class="swiper-button-next swpb">
+      <div class="swiper-button-next swpb" style="right:0">
         <fa-icon [icon]="icons.faChevronRight"></fa-icon>
       </div>
     </div>

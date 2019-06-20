@@ -29,7 +29,7 @@
 .example-box {
   // animation: grow 0.6s;
   height: 110px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   // padding: 20px 10px;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -39,8 +39,6 @@
   // box-sizing: border-box;
   font-size: 14px;
   position: relative;
-
-
 }
 
 .cdk-drag-preview {
@@ -78,7 +76,6 @@
 
 pyu-task-card {
   width: 100%;
-
 }
 
 .status-header {
@@ -86,15 +83,19 @@ pyu-task-card {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  background: linear-gradient(90deg, #01e873 0%, #42d0c9 100%);
   font-size: 17px;
   height: 35px;
   margin-bottom: 10px;
-  border-radius: 10px;
-  box-shadow: 0 3px 3px 0 #22a965;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 #a6bbb1;
   z-index: 3;
   transition: all 0.5s;
+  border: 1px solid #ccc;
+  // background: #32d876;
+  // color: white;
+  height: 50px;
+  font-weight: 500;
+  background: #f9f9f9;
 }
 
 .status-header-mini {
@@ -117,7 +118,6 @@ ng-scrollbar {
 .no-grow {
   animation: none;
 }
-
 @keyframes grow {
   from {
     transform: scale(0.1);
@@ -125,5 +125,16 @@ ng-scrollbar {
 
   to {
     transform: scale(1);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .example-box {
+    margin: 0;
+  }
+
+  .status-header {
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: 0 0 0 0;
   }
 }
