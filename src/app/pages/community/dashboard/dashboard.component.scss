@@ -49,17 +49,17 @@ pyu-status-panel {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
     &-logo {
-      height:30px;
-      width:30px;
+      height: 30px;
+      width: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
       color: gray;
-      fa-icon {
 
-      }
+      fa-icon {}
       border: 1px solid #cecece;
       border-radius: 5px;
       margin-right: 5px;

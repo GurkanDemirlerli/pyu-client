@@ -11,8 +11,11 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   get(id: number) {
-    id = 40;
     return this.http.get<any>(this.domain + `projects/${id}`);
+  }
+
+  getMembers(id:number){
+    return this.http.get<any>(this.domain + `projects/${id}/members`);
   }
 
 }

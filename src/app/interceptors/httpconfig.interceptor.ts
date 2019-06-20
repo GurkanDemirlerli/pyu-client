@@ -10,7 +10,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { tap, catchError } from "rxjs/operators";
 
 
@@ -35,7 +35,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(evt => {
         if (evt instanceof HttpResponse) {
-          this.toasterService.success("message", "Title", { positionClass: 'toast-bottom-center' });
+          // this.toasterService.success("message", "Title", { positionClass: 'toast-bottom-center' });
         }
       }),
       catchError((err: any) => {
@@ -51,9 +51,11 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           } catch (e) {
             this.toasterService.error('An error occurred', '', { positionClass: 'toast-bottom-center' });
           }
+          return throwError(' ');
           //log error
         }
-        return of(err);
+        return throwError(' ');
+
       }));
   }
 }

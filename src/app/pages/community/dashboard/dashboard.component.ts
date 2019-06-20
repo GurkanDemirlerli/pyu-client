@@ -21,7 +21,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   bsModalRef: BsModalRef;
   unsubscriber$ = Subscription.EMPTY;
   swiperConfig = swiperConfig;
-
+  visibleSidebar = false;
+  selectedTaskId: number;
   icons = {
     faChevronLeft,
     faChevronRight,
@@ -65,6 +66,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onDataRetrieved(project: any) {
     this.project = project;
+  }
+
+  handleTaskSelected(event) {
+    this.selectedTaskId = event.id;
+    this.visibleSidebar = true;
   }
 
   ngOnDestroy() {

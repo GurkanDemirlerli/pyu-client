@@ -79,7 +79,6 @@
         id="statusId"
         formControlName="statusId"
         name="statusId"
-        id="statusId"
         placeholder="Select Task Status ..."
         [class.is-valid]="!statusId.invalid && statusId.touched"
         [class.is-invalid]="statusId.invalid && statusId.touched"
@@ -97,6 +96,20 @@
           Looks good!.
         </div>
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="statusId"  >Assignees</label>
+      <select
+        multiple
+        class="form-control"
+        formControlName="assignees"
+        id="assignees"
+        name="assignees"
+        placeholder="Select Assignees ..."
+      >
+      <option [value]="mb.id" *ngFor="let mb of members">{{mb.name + ' ' + mb.surname}}</option>
+      </select>
     </div>
     <button type="submit" class="btn btn-danger">Submit</button>
   </form>

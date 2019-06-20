@@ -1,7 +1,6 @@
 <div class="wrpr">
 
   <div #top class="top">
-
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Company Name</a></li>
@@ -53,29 +52,11 @@
     >
       <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let st of project.statuses">
-          <pyu-status-panel [status]=st></pyu-status-panel>
+          <pyu-status-panel [status]=st (onTaskSelected)="handleTaskSelected($event)"></pyu-status-panel>
         </div>
-        <!-- <div class="swiper-slide">
-          <pyu-status-panel [statusId]=1></pyu-status-panel>
-        </div>
-        <div class="swiper-slide">
-          <pyu-status-panel [statusId]=2></pyu-status-panel>
-        </div>
-        <div class="swiper-slide">
-          <pyu-status-panel [statusId]=3></pyu-status-panel>
-        </div>
-        <div class="swiper-slide">
-          <pyu-status-panel [statusId]=4></pyu-status-panel>
-        </div>
-        <div class="swiper-slide">
-          <pyu-status-panel [statusId]=5></pyu-status-panel>
-        </div>
-        <div class="swiper-slide">
-          <pyu-status-panel [statusId]=6></pyu-status-panel>
-        </div> -->
+
       </div>
 
-      <!-- <div class="swiper-scrollbar" ></div> -->
       <div class="swiper-pagination"></div>
 
       <div class="swiper-button-prev swpb" >
@@ -92,3 +73,10 @@
 
   </div>
 </div>
+
+<p-sidebar [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000">
+  <pyu-task-detail [taskId]="selectedTaskId"></pyu-task-detail>
+    <!-- <h1 style="font-weight:normal">Right Sidebar</h1>
+    <button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"></button>
+    <button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"></button> -->
+</p-sidebar>

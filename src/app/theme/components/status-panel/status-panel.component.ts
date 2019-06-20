@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, HostBinding, AfterViewInit, Renderer, ViewChildren, QueryList, DoCheck, OnChanges, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, HostBinding, AfterViewInit, Renderer, ViewChildren, QueryList, DoCheck, OnChanges, HostListener, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'pyu-status-panel',
@@ -9,6 +10,28 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class StatusPanelComponent implements OnInit, AfterViewInit {
   deviceInfo = null;
+  missions = [];
+  items = [];
+
+  @Input() status: any;
+  @Output() onTaskSelected: EventEmitter<any> = new EventEmitter();
+  @ViewChild('wrapper', { static: false }) wrapperEl: ElementRef;
+
+
+  constructor(private elRef: ElementRef, private deviceService: DeviceDetectorService, private taskService: TaskService) { }
+
+  ngOnInit() {
+    this.taskService.getForStatus({ projectId: this.status.projectId, status: this.status.id }).subscribe((res) => {
+      this.items = res.data;
+    });
+    this.taskService.addedTask$.subscribe((tsk) => {
+      if (tsk && tsk.status.id === this.status.id) {
+        tsk.isNew = true;
+        this.items.push(tsk);
+      }
+    })
+  }
+
   ngAfterViewInit(): void {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
@@ -21,36 +44,38 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @Input() status: any;
-
-  items = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-  ];
-  @ViewChild('wrapper', { static: false }) wrapperEl: ElementRef;
-
-  constructor(private elRef: ElementRef, private renderer: Renderer, private deviceService: DeviceDetectorService) { }
-
-  swipeLeft() {
-    let amount = this.wrapperEl.nativeElement.offsetWidth;
-    this.renderer.setElementStyle(this.elRef.nativeElement, 'margin-left', '-' + amount + 'px');
-  }
-
-  swipeRight() {
-    let amount = this.wrapperEl.nativeElement.offsetWidth;
-    this.renderer.setElementStyle(this.elRef.nativeElement, 'margin-left', amount + 'px');
-  }
-
-  ngOnInit() {
-  }
-
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(this.items);
     } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      const preConData = event.previousContainer.data;
+      const conData = event.container.data;
+      const preInd = event.previousIndex;
+      const curInd = event.currentIndex;
+
+      transferArrayItem(preConData,
+        conData,
+        preInd,
+        curInd);
+      let item = this.items[event.currentIndex]
+      console.log(this.items[event.currentIndex]);
+      this.taskService.changeStatus(item.id, this.status.id).subscribe(() => {
+        console.log("OKOKOKOK");
+      }, (err) => {
+        console.log("EROROROREOR");
+        transferArrayItem(conData,
+          preConData,
+          curInd,
+          preInd);
+      });
+
     }
   }
+
+  handleTaskSelected(event) {
+    console.log(event);
+    this.onTaskSelected.emit(event);
+  }
+
 }
