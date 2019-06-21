@@ -25,6 +25,10 @@ export class TaskService {
     return this.http.post<any>(this.domain + 'tasks', model);
   }
 
+  get(id: number) {
+    return this.http.get<any>(this.domain + `tasks/${id}`);
+  }
+
   getForStatus(parameters: TaskFilter) {
     const params = new HttpParams({
       fromObject: { ...parameters }

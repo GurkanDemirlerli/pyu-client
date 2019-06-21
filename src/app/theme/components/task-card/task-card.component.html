@@ -19,15 +19,15 @@
       <div class="card-right-top-icons">
         <div class="card-right-top-icons-item">
           <fa-icon [icon]="icons.faComments"></fa-icon>
-          <span> 5</span>
+          <span> {{task.commentCount}}</span>
         </div>
-        <div class="card-right-top-icons-item">
+        <!-- <div class="card-right-top-icons-item">
           <fa-icon [icon]="icons.faCodeBranch"></fa-icon>
           <span> 1</span>
-        </div>
+        </div> -->
         <div class="card-right-top-icons-item">
           <fa-icon [icon]="icons.faClock"></fa-icon>
-          <span> 2d</span>
+          <span>Na</span>
         </div>
       </div>
     </div>
@@ -48,11 +48,7 @@
       </div>
     </div>
     <div class="card-right-assignees">
-      <div class="card-right-assignees-item" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
-
-      </div>
-      <div class="card-right-assignees-item" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
-
+      <div class="card-right-assignees-item" *ngFor="let asg of task.assignees" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
       </div>
     </div>
   </div>

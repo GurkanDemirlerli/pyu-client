@@ -82,16 +82,19 @@
 
       &-icons {
         display: flex;
-        width: 50%;
+        // width: 50%;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
+        flex: 1;
+        margin-right: 30px;
 
         &-item {
           color: #adadad;
           display: flex;
           flex-direction: row;
           cursor: pointer;
+          margin-left: 10px;
 
           fa-icon {
             font-size: 13px;
