@@ -19,6 +19,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   declarations: [
     AppComponent,
     AddTaskModalComponent
+    
   ],
   imports: [
     BrowserModule,

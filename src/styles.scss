@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+html, body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+.page-wrapper{
+  height: 100%;
+  overflow: hidden;
+}
+
+.middle-wrapper{
+  height: 100%;
+  overflow:hidden;
+}
+.cont-wrapper{
+  height:100%;
+  overflow: hidden;
+}
+.content-wrapper{
+  height: 95%;
+  overflow: hidden;
+
+}
+
+.footer-wrapper {
+  height: 5%;
+}
+
+a{
+  color: black !important;
+}
