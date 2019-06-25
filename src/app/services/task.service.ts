@@ -13,12 +13,17 @@ import { of, throwError, BehaviorSubject } from 'rxjs';
 export class TaskService {
 
   public addedTask$: BehaviorSubject<any> = new BehaviorSubject(null);
+  public selectedTaskId$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   private domain = server.url + "/api/";
   constructor(private http: HttpClient) { }
 
   public emitTaskAdded(newValue: any) {
     this.addedTask$.next(newValue);
+  }
+
+  public emitSelectedTaskId(newValue: any) {
+    this.selectedTaskId$.next(newValue);
   }
 
   add(model: any) {

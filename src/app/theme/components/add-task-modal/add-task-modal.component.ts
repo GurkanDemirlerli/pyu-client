@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { TaskService } from 'src/app/services/task.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { ToastrService } from 'ngx-toastr';
+import { SubProjectService } from 'src/app/services/sub-project.service';
 @Component({
   selector: 'pyu-add-task-modal',
   templateUrl: './add-task-modal.component.html',
@@ -12,8 +13,22 @@ import { ToastrService } from 'ngx-toastr';
 export class AddTaskModalComponent implements OnInit {
 
   projectId: number;
+  projectType: number;
+  prId:number;
   statuses: [];
   members: [];
+  priorities = [
+    { value: 0, text: "Extremely Low" },
+    { value: 1, text: "Ultra Low" },
+    { value: 2, text: "Very Low" },
+    { value: 3, text: "Low" },
+    { value: 4, text: "Medium" },
+    { value: 5, text: "High" },
+    { value: 6, text: "Very High" },
+    { value: 7, text: "Ultra High" },
+    { value: 8, text: "Extremely High" },
+
+  ];
 
   // @Output() onTaskInserted: EventEmitter<any> = new EventEmitter();
 
@@ -21,17 +36,26 @@ export class AddTaskModalComponent implements OnInit {
     title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]),
     description: new FormControl('', Validators.required),
     statusId: new FormControl('', [Validators.required]),
-    assignees: new FormControl([])
+    assignees: new FormControl([]),
+    priority: new FormControl('', [Validators.required])
   });
 
-  constructor(public bsModalRef: BsModalRef, private taskService: TaskService, private projectService: ProjectService, private toastr: ToastrService) { }
+  constructor(public bsModalRef: BsModalRef, private taskService: TaskService, private projectService: ProjectService, private toastr: ToastrService,private subProjectService:SubProjectService) { }
 
   ngOnInit() {
     console.log(this.statuses);
-    this.projectService.getMembers(this.projectId).subscribe((resp) => {
-      console.log(resp.data);
-      this.members = resp.data;
-    });
+    if (this.projectType === 0) {
+      this.projectService.getMembers(this.prId).subscribe((resp) => {
+        console.log(resp.data);
+        this.members = resp.data;
+      });
+    } else {
+      this.subProjectService.get(this.prId).subscribe((resp)=>{
+        console.log(resp.data);
+        this.members = resp.data.assignedTask.assignees;
+      })
+    }
+
   }
 
   addTask() {
@@ -40,7 +64,8 @@ export class AddTaskModalComponent implements OnInit {
       description: this.description.value,
       statusId: +this.statusId.value,
       projectId: this.projectId,
-      assignees: this.assignees.value
+      assignees: this.assignees.value,
+      priority: this.priority.value
     }).subscribe((resp) => {
       this.toastr.success('Success', 'Task has been added');
       this.taskService.emitTaskAdded(resp.data);
@@ -62,6 +87,10 @@ export class AddTaskModalComponent implements OnInit {
 
   get assignees() {
     return this.addTaskForm.get('assignees');
+  }
+
+  get priority() {
+    return this.addTaskForm.get('priority');
   }
 
 }

@@ -1,3 +1,163 @@
-<p>
-  task-detail works! {{taskId}}
-</p>
+<ng-container *ngIf="loading === true; else page">
+  <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</ng-container>
+<ng-template #page>
+  <div class="ts-detail">
+    <h5>PYU - {{task.code}}</h5>
+    <h5>{{task.title}}</h5>
+    <p>{{task.description}}</p>
+    <div class="row" style="margin-top:30px;">
+      <div class="btn-group ts-detail-options" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary active-item">Details</button>
+        <button type="button" class="btn btn-secondary">Comments</button>
+        <button type="button" class="btn btn-secondary">History</button>
+      </div>
+    </div>
+
+    <div class="ts-detail-main">
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Status
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          {{task.status.title}}
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Sub Tasks
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          Buraya progress bar gelecek
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Created By
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          {{task.creator.name + ' ' + task.creator.surname | titlecase}}
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Created At
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          {{task.createdAt}}
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Last Updated
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          {{task.lastUpdated}}
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Assignees
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          Burayı doldur
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Priority
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          <fa-icon [icon]="pricons[task.priority]" style="color:#d40091;"></fa-icon>
+
+          {{taskPrioritiesReverse[taskPriorities[task.priority]]}}
+        </div>
+      </div>
+
+
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Remaining
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          <fa-icon [icon]="icons.faColumns"></fa-icon>
+
+          Na
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          Labels
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          Burayı Doldur
+        </div>
+      </div>
+
+      <div class="ts-detail-main-item">
+        <div class="ts-detail-main-item-label">
+          From Issue
+        </div>
+        <div class="ts-detail-main-item-space">
+          :
+        </div>
+        <div class="ts-detail-main-item-content">
+          {{task.fromIssueId}}
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:30px;" *ngIf="task.type === 1">
+        <div class="btn-group ts-detail-options" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary active-item" (click)="showProject()">Show Project</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:30px;" *ngIf="task.type === 0">
+        <div class="btn-group ts-detail-options" role="group" style="opacity:.4;" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary active-item" (click)="convertToProject()">Convert To Project</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</ng-template>

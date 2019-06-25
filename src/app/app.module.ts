@@ -11,6 +11,7 @@ import { HttpConfigInterceptor } from './interceptors/httpconfig.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { AddTaskModalComponent } from './theme/components/add-task-modal/add-task-modal.component';
+import { AddStatusTemplateModalComponent } from './theme/components/add-status-template-modal/add-status-template-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -18,8 +19,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 @NgModule({
   declarations: [
     AppComponent,
-    AddTaskModalComponent
-    
+    AddTaskModalComponent,
+    AddStatusTemplateModalComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     CommonModule,
     BsDropdownModule.forRoot()
   ],
-  entryComponents: [AddTaskModalComponent],
+  entryComponents: [AddTaskModalComponent,AddStatusTemplateModalComponent],
   providers: [
     BsModalRef,
     AuthService,

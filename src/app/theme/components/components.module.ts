@@ -15,7 +15,7 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     TaskCardComponent,
     StatusPanelComponent,
     StatusSummaryBarComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
   ],
   imports: [
     CommonModule,

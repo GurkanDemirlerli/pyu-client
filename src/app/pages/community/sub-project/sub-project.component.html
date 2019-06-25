@@ -3,9 +3,12 @@
   <div #top class="top">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb my-brc">
-        <li class="breadcrumb-item"><a href="#">Company Name</a></li>
+        <li class="breadcrumb-item" style="font-weight:bold">Company Name</li>
+        <li class="breadcrumb-item" *ngFor="let br of brItems" style="cursor:pointer;"  [routerLink]="[br.rt]" routerLinkActive="active">{{br.text}}</li>
+
+        <!-- <li class="breadcrumb-item"><a href="#">Company Name</a></li>
         <li class="breadcrumb-item"><a href="#">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Project Name</li>
+        <li class="breadcrumb-item active" aria-current="page">Project Name</li> -->
       </ol>
     </nav>
 

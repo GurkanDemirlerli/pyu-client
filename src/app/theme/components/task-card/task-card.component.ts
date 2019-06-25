@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { faBolt, faChevronDown, faComments, faCodeBranch, faClock, faChevronCircleDown, faChevronRight, faChevronUp, faChevronCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faBolt, faChevronDown, faComments, faCodeBranch, faClock, faChevronCircleDown, faChevronUp, faChevronCircleUp,faAngleDoubleUp,faAngleDoubleDown,faAngleUp,faAngleDown,faAngleRight, faColumns} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'pyu-task-card',
@@ -17,10 +17,11 @@ export class TaskCardComponent implements OnInit {
     faChevronDown,
     faComments,
     faCodeBranch,
-    faClock
+    faClock,
+    faColumns
   }
 
-  pricons = [faChevronCircleDown, faChevronDown, faChevronCircleDown, faChevronDown, faChevronRight, faChevronUp, faChevronCircleUp, faChevronUp, faChevronCircleUp];
+  pricons = [faChevronCircleDown, faChevronDown, faAngleDoubleDown, faAngleDown, faAngleRight, faAngleUp, faAngleDoubleUp, faChevronUp, faChevronCircleUp];
 
   constructor() { }
 

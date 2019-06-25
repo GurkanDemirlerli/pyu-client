@@ -9,13 +9,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AddTaskModalComponent } from 'src/app/theme/components/add-task-modal/add-task-modal.component';
 import { ActivatedRoute } from '@angular/router';
 import { swiperConfig } from '../swiper.config';
+import { AddStatusTemplateModalComponent } from 'src/app/theme/components/add-status-template-modal/add-status-template-modal.component';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'pyu-root-project',
+  templateUrl: './root-project.component.html',
+  styleUrls: ['./root-project.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   project: any;
   errorMessage: string;
   bsModalRef: BsModalRef;
@@ -42,8 +43,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showAddTaskModal() {
     const initialState = {
-      projectId: this.project.id,
-      statuses: this.project.statuses
+      projectId: this.project.baseProject.id,
+      statuses: this.project.baseProject.statuses,
+      projectType: this.project.baseProject.projectType,
+      prId: this.project.id
     };
     this.bsModalRef = this.modalService.show(AddTaskModalComponent, { initialState });
   }
@@ -77,4 +80,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscriber$.unsubscribe();
   }
+
+  showAddStatusTemplateModal() {
+    const initialState = {
+      companyId: this.project.company.id,
+    };
+    this.bsModalRef = this.modalService.show(AddStatusTemplateModalComponent, { initialState });
+  }
+
 }

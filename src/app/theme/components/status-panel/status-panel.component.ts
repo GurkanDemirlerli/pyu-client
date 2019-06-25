@@ -74,8 +74,8 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
   }
 
   handleTaskSelected(event) {
-    console.log(event);
     this.onTaskSelected.emit(event);
+    this.taskService.emitSelectedTaskId(event.id);
   }
 
 }

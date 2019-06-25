@@ -1,0 +1,38 @@
+.ts-detail {
+  &-options {
+    width: 100%;
+  }
+
+  &-main {
+    margin-top:20px;
+    &-item {
+      display: flex;
+      flex-direction: row;
+      padding:5px 0;
+
+      &-label {
+        color: gray;
+        font-weight: 600;
+        width: 30%;
+      }
+
+      &-space{
+        width: 2%
+      }
+
+      &-content {
+        padding-left: 5px;
+        width: 68%;
+        fa-icon{
+          color:gray;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.active-item{
+  background: #dedede;
+    color: black;
+}

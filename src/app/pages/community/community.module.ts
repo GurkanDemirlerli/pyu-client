@@ -3,6 +3,8 @@ import { CommunityComponent } from './community.component';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { DashBoardModule } from './dashboard/dashboard.module';
+import { RootProjectModule } from './root-project/root-project.module';
+import { SubProjectModule } from './sub-project/sub-project.module';
 import { PlaygroundComponent } from './playground/playground.component';
 
 
@@ -13,6 +15,8 @@ import { PlaygroundComponent } from './playground/playground.component';
     ],
     imports: [
         DashBoardModule,
+        RootProjectModule,
+        SubProjectModule,
         CommunityRoutingModule,
         LayoutModule,
 

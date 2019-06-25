@@ -1,11 +1,14 @@
-<div class="card"  (click)="selectTask()">
+<div class="card"  (click)="selectTask()" [class.sub]="task.type === 1">
   <div class="card-left">
     <div class="card-left-avatar">
       <div class="creator-avatar" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
       </div>
     </div>
-    <div class="card-left-icon" style="color:#50d400">
+    <div class="card-left-icon" style="color:#50d400" *ngIf="task.type === 0">
       <fa-icon [icon]="icons.faBolt"></fa-icon>
+    </div>
+    <div class="card-left-icon" style="color:#d45000" *ngIf="task.type === 1">
+      <fa-icon [icon]="icons.faColumns"></fa-icon>
     </div>
     <div class="card-left-icon" style="color:#d40091">
       <fa-icon [icon]="pricons[task.priority]"></fa-icon>
@@ -21,10 +24,10 @@
           <fa-icon [icon]="icons.faComments"></fa-icon>
           <span> {{task.commentCount}}</span>
         </div>
-        <!-- <div class="card-right-top-icons-item">
+        <div class="card-right-top-icons-item" *ngIf="task.type === 1">
           <fa-icon [icon]="icons.faCodeBranch"></fa-icon>
-          <span> 1</span>
-        </div> -->
+          <span> {{task.subTaskCount}}</span>
+        </div>
         <div class="card-right-top-icons-item">
           <fa-icon [icon]="icons.faClock"></fa-icon>
           <span>Na</span>

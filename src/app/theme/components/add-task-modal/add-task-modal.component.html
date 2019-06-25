@@ -99,6 +99,32 @@
     </div>
 
     <div class="form-group">
+      <label for="priority">Priority</label>
+      <select
+        class="form-control"
+        id="priority"
+        formControlName="priority"
+        name="priority"
+        placeholder="Select Priority ..."
+        [class.is-valid]="!priority.invalid && priority.touched"
+        [class.is-invalid]="priority.invalid && priority.touched"
+      >
+      <option [value]="pr.value" *ngFor="let pr of priorities">{{pr.text}}</option>
+      </select>
+      <div *ngIf="priority.touched && priority.invalid" class="invalid-feedback">
+        <div *ngIf="priority.errors.required">
+          Priority is required.
+        </div>
+      </div>
+
+      <div *ngIf="priority.touched && !priority.invalid" class="valid-feedback">
+        <div>
+          Looks good!.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
       <label for="statusId"  >Assignees</label>
       <select
         multiple
