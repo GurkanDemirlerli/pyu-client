@@ -1,5 +1,4 @@
 <div class="wrpr">
-
   <div #top class="top">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb my-brc">
@@ -12,6 +11,14 @@
     <div class="row options-wrapper">
 
       <div class="project-options">
+        <div class="project-options-item" (click)="visibleTree = true">
+          <div class="project-options-item-logo">
+            <fa-icon [icon]="icons.faFolder"></fa-icon>
+          </div>
+          <span class="project-options-item-content">
+            Explorer
+          </span>
+        </div>
         <div class="project-options-item">
           <div class="project-options-item-logo">
             <fa-icon [icon]="icons.faFilter"></fa-icon>
@@ -86,7 +93,13 @@
   <div class="bottom">
 
   </div>
+
 </div>
+
+<p-sidebar [(visible)]="visibleTree" position="left" [style]="{width:'25em'}" [baseZIndex]="10000">
+  <h3>Project Explorer</h3>
+  <p-tree [value]="filesTree2" selectionMode="single"  [style]="{width:'100%',border:'0'}" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+</p-sidebar>
 
 <p-sidebar [(visible)]="visibleSidebar" position="right" [style]="{width:'25em'}" [baseZIndex]="10000">
   <pyu-task-detail></pyu-task-detail>

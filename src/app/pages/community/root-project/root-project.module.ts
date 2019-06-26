@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {};
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ToolbarModule,
     ButtonModule,
     SplitButtonModule,
-    BsDropdownModule
+    BsDropdownModule,
+    TreeModule,
   ],
   exports: [],
   providers: [{

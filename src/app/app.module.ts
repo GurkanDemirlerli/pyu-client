@@ -15,6 +15,9 @@ import { AddStatusTemplateModalComponent } from './theme/components/add-status-t
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -33,9 +36,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    FontAwesomeModule,
+    PanelMenuModule,
+    DragDropModule
   ],
-  entryComponents: [AddTaskModalComponent,AddStatusTemplateModalComponent],
+  entryComponents: [AddTaskModalComponent, AddStatusTemplateModalComponent],
   providers: [
     BsModalRef,
     AuthService,
