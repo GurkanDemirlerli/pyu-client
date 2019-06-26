@@ -1,4 +1,4 @@
-<div class="wrpr">
+<div #area class="wrpr">
   <div #top class="top">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb my-brc">
@@ -96,9 +96,12 @@
 
 </div>
 
-<p-sidebar [(visible)]="visibleTree" position="left" [style]="{width:'25em'}" [baseZIndex]="10000">
-  <h3>Project Explorer</h3>
-  <p-tree [value]="filesTree2" selectionMode="single"  [style]="{width:'100%',border:'0'}" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+<p-sidebar [appendTo]="area" [(visible)]="visibleTree" position="left" [style]="{width:'25em'}" [baseZIndex]="10000" [dismissible]="false" [modal]="false">
+  <h5>Project Explorer</h5>
+  <div class="hide-bar" (click)="visibleTree=!visibleTree">
+    <fa-icon [icon]="visibleTree ? icons.faChevronLeft : icons.faChevronRight"></fa-icon>
+  </div>
+  <p-tree [value]="filesTree2" selectionMode="single" [style]="{width:'100%',border:'0',margin:'0', padding:'0'}" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
 </p-sidebar>
 
 <p-sidebar [(visible)]="visibleSidebar" position="right" [style]="{width:'25em'}" [baseZIndex]="10000">

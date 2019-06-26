@@ -78,8 +78,7 @@ pyu-status-panel {
 
     &-content {}
 
-
-    &:hover{
+    &:hover {
       background: white;
     }
   }
@@ -119,6 +118,46 @@ pyu-status-panel {
   }
 }
 
-.dropdown-item{
+.dropdown-item {
   cursor: pointer;
+}
+
+.hide-bar {
+  position: absolute;
+  right: -20px;
+  font-size: 25px;
+  background: white;
+  width: 40px;
+  height: 80px;
+  border-radius: 50px;
+  color: #232323;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin: auto;
+  top: 50%;
+  transition: all 0.2s;
+  border-right: 1px solid #b9b9b9;
+
+  &:hover fa-icon {
+    color:gray;
+  }
+
+  fa-icon {
+    margin-right: 4px;
+    font-size: 25px;
+  }
+}
+
+::ng-deep .ui-sidebar-left {
+  // // width: 25em !important;
+  // // z-index: 11002 !important;
+  // background: rgb(56, 56, 56) !important;
+  // border-top: none !important;
+  // border-bottom: none !important;
+  // border-left: none !important;
+  // border-image: initial !important;
+  // border-right: 1px solid black !important;
+  opacity: 1 !important;
 }

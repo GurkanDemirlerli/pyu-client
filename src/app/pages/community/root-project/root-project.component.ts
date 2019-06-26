@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import {
   SwiperDirective
 } from 'ngx-swiper-wrapper';
@@ -17,7 +17,8 @@ import { treeMockData } from './tree-mock.data';
 @Component({
   selector: 'pyu-root-project',
   templateUrl: './root-project.component.html',
-  styleUrls: ['./root-project.component.scss']
+  styleUrls: ['./root-project.component.scss'],
+  // encapsulation: ViewEncapsulation.Native
 })
 export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   project: any;
@@ -36,7 +37,7 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     faChartLine,
     faFolder
   }
-  visibleTree = false;
+  visibleTree = true;
 
   @ViewChild(SwiperDirective, { static: false }) swiperRef?: SwiperDirective;
 
@@ -68,6 +69,7 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
         }, i);
       }
     });
+    this.visibleTree = false;
   }
 
   ngOnInit() {
