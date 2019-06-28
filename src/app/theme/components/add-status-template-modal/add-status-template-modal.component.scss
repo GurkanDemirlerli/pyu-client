@@ -133,12 +133,29 @@
   }
 }
 
-.delete-button{
+.delete-button {
   position: absolute;
   right: 10px;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
-    color:firebrick;
+    color: firebrick;
   }
+}
+
+.modal-header {
+  background: linear-gradient(90deg, #b22222 0%, #ff5e5e 100%);
+  color: white;
+  border: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+:host {
+  background: transparent;
+}
+
+.drag-box {
+  background: white;
+  border-radius: 20px;
 }

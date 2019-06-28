@@ -18,12 +18,15 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AddProjectModalComponent } from './theme/components/add-project-modal/add-project-modal.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTaskModalComponent,
-    AddStatusTemplateModalComponent
+    AddStatusTemplateModalComponent,
+    AddProjectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BsDropdownModule.forRoot(),
     FontAwesomeModule,
     PanelMenuModule,
-    DragDropModule
+    DragDropModule,
+    AngularDraggableModule
   ],
-  entryComponents: [AddTaskModalComponent, AddStatusTemplateModalComponent],
+  entryComponents: [AddTaskModalComponent, AddStatusTemplateModalComponent, AddProjectModalComponent],
   providers: [
     BsModalRef,
     AuthService,

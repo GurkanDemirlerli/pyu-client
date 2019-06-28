@@ -4,11 +4,8 @@
       <div class="creator-avatar" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
       </div>
     </div>
-    <div class="card-left-icon" style="color:#50d400" *ngIf="task.type === 0">
+    <div class="card-left-icon" style="color:#50d400" >
       <fa-icon [icon]="icons.faBolt"></fa-icon>
-    </div>
-    <div class="card-left-icon" style="color:#d45000" *ngIf="task.type === 1">
-      <fa-icon [icon]="icons.faColumns"></fa-icon>
     </div>
     <div class="card-left-icon" style="color:#d40091">
       <fa-icon [icon]="pricons[task.priority]"></fa-icon>

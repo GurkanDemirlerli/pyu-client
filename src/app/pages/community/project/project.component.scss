@@ -139,6 +139,7 @@ pyu-status-panel {
   top: 50%;
   transition: all 0.2s;
   border-right: 1px solid #b9b9b9;
+  box-shadow: rgba(64, 64, 64, 0.54) 7px 1px 5px 0;
 
   &:hover fa-icon {
     color: gray;
@@ -160,6 +161,7 @@ pyu-status-panel {
   // border-image: initial !important;
   // border-right: 1px solid black !important;
   opacity: 1 !important;
+  // box-shadow: rgb(64, 64, 64) 0 2px 20px 0 !important;
 }
 
 .med {
@@ -184,7 +186,7 @@ pyu-status-panel {
 }
 
 .my-dp {
-  fa-icon{
+  fa-icon {
     color: #636363;
   }
   border: 1px solid #dadada;

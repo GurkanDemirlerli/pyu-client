@@ -1,43 +1,47 @@
-<div class="modal-header">
-  <h5>New Status Template</h5>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true" style="font-family: sans-serif;">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <div class="status-template">
-    <div class="status-template-left">
-      <div class="base-items">
+<div ngDraggable class="drag-box">
 
-        <div class="base-item" [class.base-item-active]="selectedTab === tb.id" *ngFor="let tb of tabs" (click)="selectedTab = tb.id">
-          <div class="base-item-icon">
-            <fa-icon [icon]="tb.icon"></fa-icon>
-          </div>
-          <div class="base-item-content">
-            {{tb.text}}
+
+  <div class="modal-header">
+    <h5>New Status Template</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" style="font-family: sans-serif; color:White;">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="status-template">
+      <div class="status-template-left">
+        <div class="base-items">
+
+          <div class="base-item" [class.base-item-active]="selectedTab === tb.id" *ngFor="let tb of tabs" (click)="selectedTab = tb.id">
+            <div class="base-item-icon">
+              <fa-icon [icon]="tb.icon"></fa-icon>
+            </div>
+            <div class="base-item-content">
+              {{tb.text}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="status-template-right">
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let st of tabs[selectedTab].statuses" cdkDrag>
-          <div class="status" (click)="openAddStatusForm">
-            {{st.title}}
-          </div>
+      <div class="status-template-right">
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let st of tabs[selectedTab].statuses" cdkDrag>
+            <div class="status" (click)="openAddStatusForm">
+              {{st.title}}
+            </div>
 
-          <div class="delete-button" (click)="deleteStatus(st.id)">
-            <fa-icon [icon]="icons.faTrashAlt"></fa-icon>
+            <div class="delete-button" (click)="deleteStatus(st.id)">
+              <fa-icon [icon]="icons.faTrashAlt"></fa-icon>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="add-btn">
-        <input (keyup.enter)="addNewStatus()" [(ngModel)]="newStatus" style="margin-right: 10px;" type="text" class="form-control" id="statusTitle" placeholder="Enter status name">
-        <fa-icon [icon]="icons.faPlusSquare" (click)="addNewStatus()"></fa-icon>
+        <div class="add-btn">
+          <input (keyup.enter)="addNewStatus()" [(ngModel)]="newStatus" style="margin-right: 10px;" type="text" class="form-control" id="statusTitle" placeholder="Enter status name">
+          <fa-icon [icon]="icons.faPlusSquare" (click)="addNewStatus()"></fa-icon>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="modal-footer no-border-top">
-  <button type="button" class="btn btn-primary" (click)="createTemplate()">Create</button>
+  <div class="modal-footer no-border-top">
+    <button type="button" class="btn btn-primary" (click)="createTemplate()">Create</button>
+  </div>
 </div>

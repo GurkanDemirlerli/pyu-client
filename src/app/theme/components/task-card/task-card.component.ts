@@ -29,12 +29,12 @@ export class TaskCardComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this.task.isNew) {
-      this.anima = 'grow .6s';
-      setTimeout(() => {
-        this.anima = 'none';
-      }, 1000);
-    }
+    // if (this.task.isNew) {
+    //   this.anima = 'grow .6s';
+    //   setTimeout(() => {
+    //     this.anima = 'none';
+    //   }, 3000);
+    // }
 
   }
 

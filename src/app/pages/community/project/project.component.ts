@@ -16,14 +16,15 @@ import { treeMockData } from './tree-mock.data';
 import { CompanyService } from 'src/app/services/company.service';
 import { skip } from 'rxjs/operators';
 import { AddProjectModalComponent } from 'src/app/theme/components/add-project-modal/add-project-modal.component';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
-  selector: 'pyu-root-project',
-  templateUrl: './root-project.component.html',
-  styleUrls: ['./root-project.component.scss'],
+  selector: 'pyu-project',
+  templateUrl: './project.component.html',
+  styleUrls: ['./project.component.scss'],
   // encapsulation: ViewEncapsulation.Native
 })
-export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   project: any;
   errorMessage: string;
   bsModalRef: BsModalRef;
@@ -51,16 +52,12 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     public toasterService: ToastrService,
     private companyService: CompanyService,
-    private router: Router
-  ) {
-
-  }
+    private router: Router,
+    private projectService: ProjectService
+  ) { }
 
   filesTree2: TreeNode[];
   selectedFile: TreeNode;
-
-
-
 
   ngOnInit() {
     const resolvedData = this.route.snapshot.data['resolvedData'];
@@ -79,6 +76,43 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       this.swiperRef.update();
 
     });
+
+    this.projectService.addedProject$.subscribe((newPrj) => {
+      if (!newPrj)
+        return;
+
+      console.log("AAAAAAA");
+      for (let i in this.filesTree2) {
+        if (this.filesTree2[i].data === newPrj.parentId) {
+          this.filesTree2[i].children.push({
+            label: newPrj.title,
+            data: newPrj.id,
+            expandedIcon: "fa fa-folder-open",
+            collapsedIcon: "fa fa-folder",
+          });
+          break;
+        } else {
+          this.findParent(newPrj, this.filesTree2[i]);
+        }
+      }
+    });
+  }
+
+  private findParent(newPrj, root) {
+    for (let i in root.children) {
+      if (root.children[i].data === newPrj.parentId) {
+        if (!root.children[i].children)
+          root.children[i].children = [];
+        root.children[i].children.push({
+          label: newPrj.title,
+          data: newPrj.id,
+          expandedIcon: "fa fa-folder-open",
+          collapsedIcon: "fa fa-folder",
+        });
+        break;
+      }
+      this.findParent(newPrj, root.children[i]);
+    }
   }
 
   ngAfterViewInit() {
@@ -101,18 +135,20 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       projectId: this.project.id,
       statuses: this.project.statuses,
       projectType: this.project.projectType,
+      companyId: this.project.company.id,
       prId: this.project.id
     };
-    this.bsModalRef = this.modalService.show(AddTaskModalComponent, { initialState, class: 'modal-dialog-centered' });
+    this.bsModalRef = this.modalService.show(AddTaskModalComponent, { initialState, class: 'modal-dialog-centered border-0' });
   }
 
 
   showAddProjectModal() {
     const initialState = {
-      projectId: this.project.id,
+      parentId: this.project.id,
       statuses: this.project.statuses,
+      companyId: this.project.company.id
     };
-    this.bsModalRef = this.modalService.show(AddProjectModalComponent, { initialState, class: 'modal-dialog-centered' });
+    this.bsModalRef = this.modalService.show(AddProjectModalComponent, { initialState, class: 'modal-dialog-centered border-0' });
   }
 
 
@@ -134,7 +170,7 @@ export class RootProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nodeSelect(event) {
-    this.router.navigate(['/community/2/root-project/' + event.node.data]);
+    this.router.navigate(['/community/2/project/' + event.node.data]);
     this.visibleTree = false;
   }
 

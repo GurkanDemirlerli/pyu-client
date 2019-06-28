@@ -14,9 +14,10 @@ export class AddTaskModalComponent implements OnInit {
 
   projectId: number;
   projectType: number;
-  prId:number;
+  prId: number;
   statuses: [];
   members: [];
+
   priorities = [
     { value: 0, text: "Extremely Low" },
     { value: 1, text: "Ultra Low" },
@@ -27,7 +28,6 @@ export class AddTaskModalComponent implements OnInit {
     { value: 6, text: "Very High" },
     { value: 7, text: "Ultra High" },
     { value: 8, text: "Extremely High" },
-
   ];
 
   // @Output() onTaskInserted: EventEmitter<any> = new EventEmitter();
@@ -40,21 +40,19 @@ export class AddTaskModalComponent implements OnInit {
     priority: new FormControl('', [Validators.required])
   });
 
-  constructor(public bsModalRef: BsModalRef, private taskService: TaskService, private projectService: ProjectService, private toastr: ToastrService,private subProjectService:SubProjectService) { }
+  constructor(
+    public bsModalRef: BsModalRef,
+    private taskService: TaskService,
+    private projectService: ProjectService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     console.log(this.statuses);
-    if (this.projectType === 0) {
-      this.projectService.getMembers(this.prId).subscribe((resp) => {
-        console.log(resp.data);
-        this.members = resp.data;
-      });
-    } else {
-      this.subProjectService.get(this.prId).subscribe((resp)=>{
-        console.log(resp.data);
-        this.members = resp.data.assignedTask.assignees;
-      })
-    }
+    this.projectService.getMembers(this.projectId).subscribe((resp) => {
+      console.log(resp.data);
+      this.members = resp.data;
+    });
 
   }
 

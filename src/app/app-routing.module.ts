@@ -13,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ preloadingStrategy: SelectiveStrategy })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

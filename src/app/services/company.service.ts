@@ -14,4 +14,16 @@ export class CompanyService {
   addStatusTemplate(companyId: number, model: any) {
     return this.http.post<any>(this.domain + `companies/${companyId}/addStatusTemplate`, model);
   }
+
+  getTree(companyId: number) {
+    return this.http.get<any>(this.domain + `companies/${companyId}/showTree`);
+  }
+
+  getStatusTemplates(companyId:number){
+    return this.http.get<any>(this.domain + `companies/${companyId}/statusTemplates`);
+  }
+  getMembers(companyId:number){
+    return this.http.get<any>(this.domain + `companies/${companyId}/getMembers`);
+
+  }
 }

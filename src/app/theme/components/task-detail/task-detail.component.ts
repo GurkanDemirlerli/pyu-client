@@ -29,7 +29,7 @@ export class TaskDetailComponent implements OnInit {
 
 
 
-  constructor(private taskService: TaskService,private router:Router) { }
+  constructor(private taskService: TaskService, private router: Router) { }
 
   ngOnInit() {
     this.taskService.selectedTaskId$.subscribe((taskId) => {
@@ -46,12 +46,12 @@ export class TaskDetailComponent implements OnInit {
   }
 
   //TODO communityidyi duzenle
-  showProject(){
-    this.router.navigate(['/community/2/sub-project/'+this.task.subProject.id]);
+  showProject() {
+    this.router.navigate(['/community/2/sub-project/' + this.task.subProject.id]);
   }
 
-  // convertToProject(){
-  //   this.taskService.convertToProject(this.task.id).subscribe((resp)=>{
+  // convertToProject() {
+  //   this.taskService.convertToProject(this.task.id, model).subscribe((resp) => {
   //
   //   });
   // }

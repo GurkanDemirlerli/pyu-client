@@ -1,146 +1,109 @@
-<div class="modal-header">
-  <h4 class="modal-title pull-left">Add Task</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true" style="font-family: sans-serif;">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <form [formGroup]="addTaskForm" (ngSubmit)="addTask()">
-    <div *ngIf="addTaskForm.errors" class="invalid-feedback">
-      <div>Adding the task failed.</div>
-    </div>
+<div ngDraggable class="drag-box">
 
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input
-         type="text"
-         class="form-control"
-         formControlName="title"
-         name="title"
-         id="title"
-         placeholder="Enter a task title ..."
-         [class.is-valid]="!title.invalid && title.touched"
-         [class.is-invalid]="title.invalid && title.touched"
-       >
-       <div *ngIf="title.touched && title.invalid" class="invalid-feedback">
-         <div *ngIf="title.errors.required">
-           Title is required.
-         </div>
-         <div *ngIf="title.errors.minlength">
-           Title should be minimum {{title.errors.minlength.requiredLength}} characters.
-         </div>
-         <div *ngIf="title.errors.maxlength">
-           Title should be maximum {{title.errors.maxlength.requiredLength}} characters.
-         </div>
-       </div>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">Add New Task</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true"  style="font-family: sans-serif; color:White;">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addTaskForm" (ngSubmit)="addTask()">
+      <div *ngIf="addTaskForm.errors" class="invalid-feedback">
+        <div>Adding the task failed.</div>
+      </div>
 
-       <div *ngIf="title.touched && !title.invalid" class="valid-feedback">
-         <div>
-           Looks good!.
-         </div>
-       </div>
-    </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" formControlName="title" name="title" id="title" placeholder="Enter a task title ..." [class.is-valid]="!title.invalid && title.touched" [class.is-invalid]="title.invalid && title.touched">
+        <div *ngIf="title.touched && title.invalid" class="invalid-feedback">
+          <div *ngIf="title.errors.required">
+            Title is required.
+          </div>
+          <div *ngIf="title.errors.minlength">
+            Title should be minimum {{title.errors.minlength.requiredLength}} characters.
+          </div>
+          <div *ngIf="title.errors.maxlength">
+            Title should be maximum {{title.errors.maxlength.requiredLength}} characters.
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label for="title">Description</label>
-      <input
-         type="text"
-         class="form-control"
-         formControlName="description"
-         name="description"
-         id="description"
-         placeholder="Enter a task description ..."
-         [class.is-valid]="!description.invalid && description.touched"
-         [class.is-invalid]="description.invalid && description.touched"
-       >
-       <div *ngIf="description.touched && description.invalid" class="invalid-feedback">
-         <div *ngIf="description.errors.required">
-           Description is required.
-         </div>
-         <div *ngIf="description.errors.minlength">
-           Description should be minimum {{description.errors.minlength.requiredLength}} characters.
-         </div>
-         <div *ngIf="description.errors.maxlength">
-           Description should be maximum {{description.errors.maxlength.requiredLength}} characters.
-         </div>
-       </div>
-
-       <div *ngIf="description.touched && !description.invalid" class="valid-feedback">
-         <div>
-           Looks good!.
-         </div>
-       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="statusId">Status</label>
-      <select
-        class="form-control"
-        id="statusId"
-        formControlName="statusId"
-        name="statusId"
-        placeholder="Select Task Status ..."
-        [class.is-valid]="!statusId.invalid && statusId.touched"
-        [class.is-invalid]="statusId.invalid && statusId.touched"
-      >
-      <option [value]="st.id" *ngFor="let st of statuses">{{st.title}}</option>
-      </select>
-      <div *ngIf="statusId.touched && statusId.invalid" class="invalid-feedback">
-        <div *ngIf="statusId.errors.required">
-          Status is required.
+        <div *ngIf="title.touched && !title.invalid" class="valid-feedback">
+          <div>
+            Looks good!.
+          </div>
         </div>
       </div>
 
-      <div *ngIf="statusId.touched && !statusId.invalid" class="valid-feedback">
-        <div>
-          Looks good!.
+      <div class="form-group">
+        <label for="title">Description</label>
+        <textarea type="text" class="form-control" formControlName="description" name="description" id="description" placeholder="Enter a task description ..." [class.is-valid]="!description.invalid && description.touched"
+          [class.is-invalid]="description.invalid && description.touched" rows="3">    </textarea>
+        <div *ngIf="description.touched && description.invalid" class="invalid-feedback">
+          <div *ngIf="description.errors.required">
+            Description is required.
+          </div>
+          <div *ngIf="description.errors.minlength">
+            Description should be minimum {{description.errors.minlength.requiredLength}} characters.
+          </div>
+          <div *ngIf="description.errors.maxlength">
+            Description should be maximum {{description.errors.maxlength.requiredLength}} characters.
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="priority">Priority</label>
-      <select
-        class="form-control"
-        id="priority"
-        formControlName="priority"
-        name="priority"
-        placeholder="Select Priority ..."
-        [class.is-valid]="!priority.invalid && priority.touched"
-        [class.is-invalid]="priority.invalid && priority.touched"
-      >
-      <option [value]="pr.value" *ngFor="let pr of priorities">{{pr.text}}</option>
-      </select>
-      <div *ngIf="priority.touched && priority.invalid" class="invalid-feedback">
-        <div *ngIf="priority.errors.required">
-          Priority is required.
+        <div *ngIf="description.touched && !description.invalid" class="valid-feedback">
+          <div>
+            Looks good!.
+          </div>
         </div>
       </div>
 
-      <div *ngIf="priority.touched && !priority.invalid" class="valid-feedback">
-        <div>
-          Looks good!.
+      <div class="form-group">
+        <label for="statusId">Status</label>
+        <select class="form-control" id="statusId" formControlName="statusId" name="statusId" placeholder="Select Task Status ..." [class.is-valid]="!statusId.invalid && statusId.touched" [class.is-invalid]="statusId.invalid && statusId.touched">
+          <option [value]="st.id" *ngFor="let st of statuses">{{st.title}}</option>
+        </select>
+        <div *ngIf="statusId.touched && statusId.invalid" class="invalid-feedback">
+          <div *ngIf="statusId.errors.required">
+            Status is required.
+          </div>
+        </div>
+
+        <div *ngIf="statusId.touched && !statusId.invalid" class="valid-feedback">
+          <div>
+            Looks good!.
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="statusId"  >Assignees</label>
-      <select
-        multiple
-        class="form-control"
-        formControlName="assignees"
-        id="assignees"
-        name="assignees"
-        placeholder="Select Assignees ..."
-      >
-      <option [value]="mb.id" *ngFor="let mb of members">{{mb.name + ' ' + mb.surname}}</option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-danger">Submit</button>
-  </form>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select class="form-control" id="priority" formControlName="priority" name="priority" placeholder="Select Priority ..." [class.is-valid]="!priority.invalid && priority.touched" [class.is-invalid]="priority.invalid && priority.touched">
+          <option [value]="pr.value" *ngFor="let pr of priorities">{{pr.text}}</option>
+        </select>
+        <div *ngIf="priority.touched && priority.invalid" class="invalid-feedback">
+          <div *ngIf="priority.errors.required">
+            Priority is required.
+          </div>
+        </div>
 
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
+        <div *ngIf="priority.touched && !priority.invalid" class="valid-feedback">
+          <div>
+            Looks good!.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="statusId">Assignees</label>
+        <select multiple class="form-control" formControlName="assignees" id="assignees" name="assignees" placeholder="Select Assignees ...">
+          <option [value]="mb.id" *ngFor="let mb of members">{{mb.name + ' ' + mb.surname}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
+  </div>
 </div>

@@ -6,6 +6,7 @@ import { DashBoardModule } from './dashboard/dashboard.module';
 import { RootProjectModule } from './root-project/root-project.module';
 import { SubProjectModule } from './sub-project/sub-project.module';
 import { PlaygroundComponent } from './playground/playground.component';
+import { ProjectModule } from './project/project.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { PlaygroundComponent } from './playground/playground.component';
         DashBoardModule,
         RootProjectModule,
         SubProjectModule,
+        ProjectModule,
         CommunityRoutingModule,
         LayoutModule,
 
