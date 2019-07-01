@@ -1,6 +1,6 @@
 export class TreeExplorerItem {
   label?: string
-  data?: string;
+  data?: any;
   expandedIcon?: string;
   collapsedIcon?: string;
   icon?: string;

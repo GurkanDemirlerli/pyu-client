@@ -1,3 +1,4 @@
+import { TaskService } from 'src/app/services/task.service';
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import {
   SwiperDirective
@@ -17,6 +18,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { skip } from 'rxjs/operators';
 import { AddProjectModalComponent } from 'src/app/theme/components/add-project-modal/add-project-modal.component';
 import { ProjectService } from 'src/app/services/project.service';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'pyu-project',
@@ -53,7 +55,8 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     public toasterService: ToastrService,
     private companyService: CompanyService,
     private router: Router,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private taskService: TaskService
   ) { }
 
   filesTree2: TreeNode[];
@@ -65,6 +68,7 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onDataRetrieved(resolvedData.project);
     this.filesTree2 = treeMockData;
     this.companyService.getTree(this.project.company.id).subscribe((resp) => {
+
       this.filesTree2 = resp.data;
     });
 
@@ -97,6 +101,7 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
 
   private findParent(newPrj, root) {
     for (let i in root.children) {
@@ -170,8 +175,19 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nodeSelect(event) {
-    this.router.navigate(['/community/2/project/' + event.node.data]);
-    this.visibleTree = false;
+    if (event.node.data === 0) {
+      this.router.navigate(['/community/2/project/' + event.node.id]);
+      // this.visibleTree = false;
+    }
+    if (event.node.data === 1) {
+      this.router.navigate(['/community/2/project/' + event.node.parent.id]);
+    }
+    if (event.node.data === 2) {
+      this.selectedTaskId = event.node.id;
+      this.visibleSidebar = true;
+      this.taskService.emitSelectedTaskId(event.node.id);
+      this.router.navigate(['/community/2/project/' + event.node.parent.parent.id]);
+    }
   }
 
 
