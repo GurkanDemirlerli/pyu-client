@@ -9,6 +9,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { StatusSummaryBarComponent } from './status-summary-bar/status-summary-bar.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { ProjectCardComponent } from './project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     StatusPanelComponent,
     StatusSummaryBarComponent,
     TaskDetailComponent,
+    ProjectCardComponent,
   ],
   imports: [
     CommonModule,

@@ -18,7 +18,6 @@ import { CompanyService } from 'src/app/services/company.service';
 import { skip } from 'rxjs/operators';
 import { AddProjectModalComponent } from 'src/app/theme/components/add-project-modal/add-project-modal.component';
 import { ProjectService } from 'src/app/services/project.service';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'pyu-project',
@@ -61,6 +60,8 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   filesTree2: TreeNode[];
   selectedFile: TreeNode;
+  activeId: number;
+  found = false;
 
   ngOnInit() {
     const resolvedData = this.route.snapshot.data['resolvedData'];
@@ -70,6 +71,8 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     this.companyService.getTree(this.project.company.id).subscribe((resp) => {
 
       this.filesTree2 = resp.data;
+      this.findNode(this.project.id, 0);
+
     });
 
     this.route.params.pipe(skip(1)).subscribe(routeParams => {
@@ -78,6 +81,7 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       this.errorMessage = resolvedData.error;
       this.onDataRetrieved(resolvedData.project);
       this.swiperRef.update();
+      this.findNode(this.project.id, 0);
 
     });
 
@@ -85,6 +89,7 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!newPrj)
         return;
 
+      //TODO değiştir
       console.log("AAAAAAA");
       for (let i in this.filesTree2) {
         if (this.filesTree2[i].data === newPrj.parentId) {
@@ -101,6 +106,53 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
+  findNode(id: number, type: number) {
+    if (type !== 0)
+      return;
+    this.collapseAll();
+
+    for (let i in this.filesTree2) {
+      this.found = false;
+      this.findNodeRecursive(this.filesTree2[i], id, type);
+    }
+    this.found = false;
+  }
+
+  findNodeRecursive(rootNode, id, type) {
+
+    for (let i in rootNode.children) {
+      if (rootNode.id === id && rootNode.data === type) {
+        this.selectedFile = rootNode;
+        rootNode.expanded = true;
+        this.found = true;
+        return;
+      }
+      this.findNodeRecursive(rootNode.children[i], id, type);
+      if (this.found) {
+        rootNode.expanded = true;
+        return;
+      }
+
+      // rootNode.children[i].expanded = true;
+      // break;
+    }
+  }
+  collapseAll() {
+    this.filesTree2.forEach(node => {
+      this.expandRecursive(node, false);
+    });
+  }
+
+  private expandRecursive(node: TreeNode, isExpand: boolean) {
+    node.expanded = isExpand;
+    if (node.children) {
+      node.children.forEach(childNode => {
+        this.expandRecursive(childNode, isExpand);
+      });
+    }
+  }
+
 
 
   private findParent(newPrj, root) {
@@ -157,6 +209,7 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+
   handleTaskSelected(event) {
     this.selectedTaskId = event.id;
     this.visibleSidebar = true;
@@ -188,6 +241,9 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       this.taskService.emitSelectedTaskId(event.node.id);
       this.router.navigate(['/community/2/project/' + event.node.parent.parent.id]);
     }
+    console.log("ALL TREE", this.filesTree2);
+    console.log("SELECTED FILE", this.selectedFile);
+    // this.selectedFile = this.filesTree2[1];
   }
 
 

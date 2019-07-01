@@ -14,7 +14,8 @@
                 <path d="M0 0h24v24H0z" fill="none"></path>
               </svg>
             </div>
-            <pyu-task-card [task]="item" (onTaskSelected)="handleTaskSelected($event)"></pyu-task-card>
+            <pyu-project-card [project]="item" *ngIf="item.hasOwnProperty('prefix')"></pyu-project-card>
+            <pyu-task-card *ngIf="!item.hasOwnProperty('prefix')" [task]="item" (onTaskSelected)="handleTaskSelected($event)"></pyu-task-card>
           </div>
         </ng-container>
       </div>

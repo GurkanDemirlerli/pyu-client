@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild, HostBinding, AfterView
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { TaskService } from 'src/app/services/task.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'pyu-status-panel',
@@ -18,11 +19,19 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
   @ViewChild('wrapper', { static: false }) wrapperEl: ElementRef;
 
 
-  constructor(private elRef: ElementRef, private deviceService: DeviceDetectorService, private taskService: TaskService) { }
+  constructor(
+    private elRef: ElementRef,
+    private deviceService: DeviceDetectorService,
+    private taskService: TaskService,
+    private projectService: ProjectService
+  ) { }
 
   ngOnInit() {
+    this.projectService.getSubs({ parentId: this.status.projectId, statusId: this.status.id }).subscribe((res) => {
+      this.items = [...res.data, ...this.items];
+    });
     this.taskService.getForStatus({ projectId: this.status.projectId, status: this.status.id }).subscribe((res) => {
-      this.items = res.data;
+      this.items = [...this.items, ...res.data];
     });
     this.taskService.addedTask$.subscribe((tsk) => {
       if (tsk && tsk.status.id === this.status.id) {

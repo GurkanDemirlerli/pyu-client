@@ -1,0 +1,93 @@
+<div class="card" (click)="navigateToProjectPage()">
+  <div class="pr">
+
+    <div class="pr-top">
+      {{project.title | titlecase}}
+    </div>
+    <div class="pr-middle">
+      <div class="progress">
+        <div class="progress-bar ng-danger" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0"
+          aria-valuemax="100"></div>
+        <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0"
+          aria-valuemax="100"></div>
+        <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+          aria-valuemax="100"></div>
+      </div>
+    </div>
+    <div class="pr-bottom">
+      <div class="opts">
+        <div class="opts-item">
+          <fa-icon [icon]="icons.faCodeBranch"></fa-icon>
+          <span> 5</span>
+        </div>
+        <div class="opts-item">
+          <fa-icon [icon]="icons.faUsers"></fa-icon>
+          <span> 4</span>
+        </div>
+        <div class="opts-item">
+          <fa-icon [icon]="icons.faQuestion"></fa-icon>
+          <span> 16</span>
+        </div>
+        <div class="opts-item">
+          <fa-icon [icon]="icons.faExclamationTriangle" style="font-size: 18px"></fa-icon>
+          <span> 45</span>
+        </div>
+        <div class="opts-item" style="align-self: flex-end;">
+          <div class=" btn btn-info opts-item-btn">
+            Details
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="card-left">
+    <div class="card-left-avatar">
+      <div class="creator-avatar" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
+      </div>
+    </div>
+    <div class="card-left-icon" style="color:#50d400" >
+      <fa-icon [icon]="icons.faBolt"></fa-icon>
+    </div>
+  </div>
+  <div class="card-right">
+    <div class="card-right-top">
+      <div class="card-right-top-code">
+        PYU- {{project.code}}
+      </div>
+      <div class="card-right-top-icons">
+        <div class="card-right-top-icons-item">
+          <fa-icon [icon]="icons.faComments"></fa-icon>
+          <span> {{project.commentCount}}</span>
+        </div>
+        <div class="card-right-top-icons-item" *ngIf="project.type === 1">
+          <fa-icon [icon]="icons.faCodeBranch"></fa-icon>
+          <span> {{project.subProjectCount}}</span>
+        </div>
+        <div class="card-right-top-icons-item">
+          <fa-icon [icon]="icons.faClock"></fa-icon>
+          <span>Na</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-right-content">
+      <div class="summary">
+      {{project.title}}
+      </div>
+    </div>
+    <div class="card-right-labels">
+      <div class="label">
+        angular
+      </div>
+      <div class="label">
+        proje
+      </div>
+      <div class="label">
+        css
+      </div>
+    </div>
+    <div class="card-right-assignees">
+      <div class="card-right-assignees-item" *ngFor="let asg of project.assignees" [style.background-image]="'url(' +'https://www.zimphysio.org.zw/wp-content/uploads/2018/01/default-avatar-2-300x300.jpg' + ')'">
+      </div>
+    </div> -->
+</div>
