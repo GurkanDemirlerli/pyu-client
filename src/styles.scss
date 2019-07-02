@@ -1,34 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
-html, body{
-    height:100%;
-    margin:0;
-    padding:0;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.page-wrapper{
+.page-wrapper {
   height: 100%;
   overflow: hidden;
 }
 
-.middle-wrapper{
+.middle-wrapper {
   height: 100%;
-  overflow:hidden;
-}
-.cont-wrapper{
-  height:100%;
   overflow: hidden;
 }
-.content-wrapper{
+.cont-wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+.content-wrapper {
   height: 95%;
   overflow: hidden;
-
 }
 
 .footer-wrapper {
   height: 5%;
 }
 
-a{
+a {
   color: black !important;
 }
 
@@ -36,4 +36,24 @@ a{
   border: 0 !important;
   border-radius: 20px;
   background: transparent;
+}
+
+.node-project {
+  color: rgb(86, 86, 86);
+  font-weight: 500;
+  .ui-treenode-icon {
+    color: rgb(86, 86, 86) !important;
+  }
+}
+
+.node-status {
+  color: gray;
+  font-weight: 300;
+}
+
+.node-task {
+  color: green;
+  .ui-treenode-icon {
+    color: green !important;
+  }
 }

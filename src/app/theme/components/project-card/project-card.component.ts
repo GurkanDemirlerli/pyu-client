@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@an
 import {
   faUsers,
   faQuestion,
+  faExclamation,
   faExclamationTriangle, faBolt, faChevronDown, faComments, faCodeBranch, faClock, faChevronCircleDown, faChevronUp, faChevronCircleUp, faAngleDoubleUp, faAngleDoubleDown, faAngleUp, faAngleDown, faAngleRight, faColumns
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -27,6 +28,7 @@ export class ProjectCardComponent implements OnInit {
     faUsers,
     faQuestion,
     faExclamationTriangle,
+    faExclamation
   }
 
   pricons = [faChevronCircleDown, faChevronDown, faAngleDoubleDown, faAngleDown, faAngleRight, faAngleUp, faAngleDoubleUp, faChevronUp, faChevronCircleUp];

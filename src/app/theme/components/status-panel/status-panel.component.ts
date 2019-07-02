@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { TaskService } from 'src/app/services/task.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'pyu-status-panel',
@@ -33,12 +34,18 @@ export class StatusPanelComponent implements OnInit, AfterViewInit {
     this.taskService.getForStatus({ projectId: this.status.projectId, status: this.status.id }).subscribe((res) => {
       this.items = [...this.items, ...res.data];
     });
-    this.taskService.addedTask$.subscribe((tsk) => {
+    this.taskService.addedTask$.pipe(skip(1)).subscribe((tsk) => {
       if (tsk && tsk.status.id === this.status.id) {
         tsk.isNew = true;
         this.items.push(tsk);
       }
-    })
+    });
+    this.projectService.addedProject$.pipe(skip(1)).subscribe((prj) => {
+      if (prj && prj.statusId === this.status.id) {
+        prj.isNew = true;
+        this.items = [prj, ...this.items];
+      }
+    });
   }
 
   ngAfterViewInit(): void {

@@ -61,6 +61,8 @@ pyu-status-panel {
     border-radius: 5px;
     border: 1px solid #dadada;
     cursor: default;
+    align-items: center;
+    justify-content: center;
 
     &-logo {
       height: 30px;
@@ -72,11 +74,12 @@ pyu-status-panel {
       border-radius: 5px;
       color: #636363;
 
-      fa-icon {}
-      border-radius: 5px;
+      fa-icon {
+      }
     }
 
-    &-content {}
+    &-content {
+    }
 
     &:hover {
       background: white;
@@ -191,4 +194,58 @@ pyu-status-panel {
   }
   border: 1px solid #dadada;
   margin-right: 5px;
+}
+
+.project-page {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  &-explorer {
+    margin-right: 15px;
+    width: 20rem;
+    height: 100%;
+    overflow-x: hidden;
+    border: 1px solid #cecece;
+    border-radius: 10px;
+    background: #f9f9f9;
+  }
+
+  &-content {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+ng-scrollbar {
+  --scrollbar-padding: 0;
+}
+
+::ng-deep .ui-tree-container {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #c6c6c6;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(142, 142, 142);
+  }
+}
+
+.my-tree {
+  font-family: "Lato, sans-serif";
 }

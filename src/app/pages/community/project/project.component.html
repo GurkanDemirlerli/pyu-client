@@ -1,33 +1,43 @@
-<div #area class="wrpr">
-  <div #top class="top">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb my-brc">
-        <li class="breadcrumb-item"><a href="#">Company Name</a></li>
-        <li class="breadcrumb-item"><a href="#">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Project Name</li>
-      </ol>
-    </nav>
+<div class="project-page">
+  <div class="project-page-explorer">
+    <!-- <h5>Project Explorer</h5> -->
+    <p-tree [value]="filesTree2" selectionMode="single" [styleClass]="my-tree"
+      [style]="{width:'100%',border:'0',margin:'0', padding:'0', height:'100%', overflow:'hidden'}"
+      [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+    </p-tree>
 
-    <div class="row options-wrapper">
+  </div>
+  <div class="project-page-content">
+    <div #area class="wrpr">
+      <div #top class="top">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb my-brc">
+            <li class="breadcrumb-item"><a href="#">{{project.company.name | titlecase}}</a></li>
+            <!-- <li class="breadcrumb-item"><a href="#">Projects</a></li> -->
+            <li class="breadcrumb-item active" aria-current="page">{{project.title | titlecase}}</li>
+          </ol>
+        </nav>
 
-      <div class="project-options">
-        <div class="project-options-item" (click)="visibleTree = true">
-          <div class="project-options-item-logo">
-            <fa-icon [icon]="icons.faFolder"></fa-icon>
-          </div>
-          <span class="project-options-item-content">
-            Explorer
-          </span>
-        </div>
-        <div class="project-options-item">
-          <div class="project-options-item-logo">
-            <fa-icon [icon]="icons.faFilter"></fa-icon>
-          </div>
-          <span class="project-options-item-content">
-            Filter
-          </span>
-        </div>
-        <!-- <div class="project-options-item" ">
+        <div class="row options-wrapper">
+
+          <div class="project-options">
+            <div class="project-options-item" (click)="visibleTree = true">
+              <div class="project-options-item-logo">
+                <fa-icon [icon]="icons.faFolder"></fa-icon>
+              </div>
+              <span class="project-options-item-content">
+                Explorer
+              </span>
+            </div>
+            <div class="project-options-item">
+              <div class="project-options-item-logo">
+                <fa-icon [icon]="icons.faFilter"></fa-icon>
+              </div>
+              <span class="project-options-item-content">
+                Filter
+              </span>
+            </div>
+            <!-- <div class="project-options-item" ">
           <div class=" project-options-item-logo">
           <fa-icon [icon]="icons.faPlus"></fa-icon>
         </div>
@@ -35,86 +45,95 @@
           New
         </span>
       </div> -->
-        <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle my-dp" aria-controls="dropdown-basic">
-            <fa-icon [icon]="icons.faPlus"></fa-icon>
-            New <span class="caret"></span>
-          </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" (click)="showAddTaskModal()">Add Task</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="showAddProjectModal()">Add Sub Project</a></li>
-          </ul>
-        </div>
-        <div class="project-options-item">
-          <div class="project-options-item-logo">
-            <fa-icon [icon]="icons.faChartLine"></fa-icon>
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle my-dp"
+                aria-controls="dropdown-basic">
+                <fa-icon [icon]="icons.faPlus"></fa-icon>
+                New <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" (click)="showAddTaskModal()">Add Task</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="showAddProjectModal()">Add Sub Project</a></li>
+              </ul>
+            </div>
+            <div class="project-options-item">
+              <div class="project-options-item-logo">
+                <fa-icon [icon]="icons.faChartLine"></fa-icon>
+              </div>
+              <span class="project-options-item-content">
+                Statistics
+              </span>
+            </div>
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle my-dp"
+                aria-controls="dropdown-basic">
+                <fa-icon [icon]="icons.faListAlt"></fa-icon>
+                Templates <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" (click)="showAddStatusTemplateModal()">Add Status
+                    Template</a></li>
+                <li role="menuitem"><a class="dropdown-item">Add Tasks Template</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item">Show Status Templates</a>
+                <li role="menuitem"><a class="dropdown-item">Show Tasks Templates</a>
+
+                </li>
+              </ul>
+            </div>
           </div>
-          <span class="project-options-item-content">
-            Statistics
-          </span>
-        </div>
-        <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle my-dp" aria-controls="dropdown-basic">
-            <fa-icon [icon]="icons.faListAlt"></fa-icon>
-            Templates <span class="caret"></span>
-          </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" (click)="showAddStatusTemplateModal()">Add Status Template</a></li>
-            <li role="menuitem"><a class="dropdown-item">Add Tasks Template</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item">Show Status Templates</a>
-            <li role="menuitem"><a class="dropdown-item">Show Tasks Templates</a>
-
-            </li>
-          </ul>
-        </div>
-      </div>
 
 
 
-      <!-- <pyu-status-summary-bar>
+          <!-- <pyu-status-summary-bar>
 
       </pyu-status-summary-bar> -->
 
-    </div>
-
-  </div>
-
-  <div #statusList class="status-list" cdkDropListGroup>
-    <div class="swiper-container" [swiper]="swiperConfig">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let st of project.statuses">
-          <pyu-status-panel [status]=st (onTaskSelected)="handleTaskSelected($event)"></pyu-status-panel>
         </div>
 
       </div>
 
-      <div class="swiper-pagination"></div>
+      <div #statusList class="status-list" cdkDropListGroup>
+        <div class="swiper-container" [swiper]="swiperConfig">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let st of project.statuses">
+              <pyu-status-panel [status]=st (onTaskSelected)="handleTaskSelected($event)"></pyu-status-panel>
+            </div>
 
-      <div class="swiper-button-prev swpb" style="left:0">
-        <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
+          </div>
+
+          <div class="swiper-pagination"></div>
+
+          <div class="swiper-button-prev swpb" style="left:0">
+            <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
+          </div>
+          <div class="swiper-button-next swpb" style="right:0">
+            <fa-icon [icon]="icons.faChevronRight"></fa-icon>
+          </div>
+        </div>
+
       </div>
-      <div class="swiper-button-next swpb" style="right:0">
-        <fa-icon [icon]="icons.faChevronRight"></fa-icon>
+
+      <div class="bottom">
+
       </div>
+
     </div>
-
   </div>
-
-  <div class="bottom">
-
-  </div>
-
 </div>
 
-<p-sidebar [(visible)]="visibleTree" position="left" [style]="{width:'25em'}" [baseZIndex]="10000" [dismissible]="false" [modal]="false">
+<!-- 
+<p-sidebar [(visible)]="visibleTree" position="left" [style]="{width:'25em'}" [baseZIndex]="10000" [dismissible]="false"
+  [modal]="false">
   <h5>Project Explorer</h5>
   <div class="hide-bar" (click)="visibleTree=!visibleTree">
     <fa-icon [icon]="visibleTree ? icons.faChevronLeft : icons.faChevronRight"></fa-icon>
   </div>
-  <p-tree [value]="filesTree2" selectionMode="single" [style]="{width:'100%',border:'0',margin:'0', padding:'0', fontFamily:'Open Sans'}" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+  <p-tree [value]="filesTree2" selectionMode="single"
+    [style]="{width:'100%',border:'0',margin:'0', padding:'0', fontFamily:'Open Sans'}" [(selection)]="selectedFile"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
   </p-tree>
-</p-sidebar>
+</p-sidebar> -->
 
 <p-sidebar [(visible)]="visibleSidebar" position="right" [style]="{width:'25em'}" [baseZIndex]="10000">
   <pyu-task-detail></pyu-task-detail>

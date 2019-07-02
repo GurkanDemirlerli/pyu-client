@@ -92,19 +92,68 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
       //TODO değiştir
       console.log("AAAAAAA");
       for (let i in this.filesTree2) {
-        if (this.filesTree2[i].data === newPrj.parentId) {
-          this.filesTree2[i].children.push({
-            label: newPrj.title,
-            data: newPrj.id,
-            expandedIcon: "fa fa-folder-open",
-            collapsedIcon: "fa fa-folder",
-          });
-          break;
-        } else {
-          this.findParent(newPrj, this.filesTree2[i]);
-        }
+        this.findParent(newPrj, this.filesTree2[i]);
       }
     });
+
+    this.taskService.addedTask$.subscribe((newTask) => {
+      if (!newTask)
+        return;
+
+      //TODO değiştir
+      console.log(newTask);
+      for (let i in this.filesTree2) {
+        this.findParentForTask(newTask, this.filesTree2[i]);
+      }
+    });
+  }
+
+  private findParentForTask(newTask, root) {
+    for (let i in root.children) {
+      if (root.children[i].id === newTask.statusId && root.children[i].data === 1) {
+        if (!root.children[i].children)
+          root.children[i].children = [];
+        let newNode = ({
+          ...newTask,
+          label: newTask.title,
+          icon: "fas fa-wrench",
+          data: 2,
+          styleClass: "node-task",
+        });
+        root.children[i].children = [...root.children[i].children, newNode]
+        break;
+      }
+      this.findParentForTask(newTask, root.children[i]);
+    }
+  }
+
+  private findParent(newPrj, root) {
+    for (let i in root.children) {
+      if (root.children[i].id === newPrj.statusId && root.children[i].data === 1) {
+        if (!root.children[i].children)
+          root.children[i].children = [];
+        let newNode = ({
+          ...newPrj,
+          label: newPrj.title,
+          expandedIcon: "fa fa-folder-open",
+          collapsedIcon: "fa fa-folder",
+          data: 0,
+          styleClass: "node-project",
+          children: [],
+        });
+        for (let st in newPrj.statuses) {
+          newNode.children.push({
+            ...newPrj.statuses[st],
+            label: newPrj.statuses[st].title,
+            data: 1,
+            styleClass: "node-status"
+          });
+        }
+        root.children[i].children = [newNode, ...root.children[i].children]
+        break;
+      }
+      this.findParent(newPrj, root.children[i]);
+    }
   }
 
   findNode(id: number, type: number) {
@@ -115,8 +164,15 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     for (let i in this.filesTree2) {
       this.found = false;
       this.findNodeRecursive(this.filesTree2[i], id, type);
+
     }
     this.found = false;
+    let elem = document.getElementsByClassName('ui-tree-container')[0];
+    console.log(elem);
+    elem.scrollLeft = 10000;
+    setTimeout(() => {
+      elem.scrollLeft = 10000;
+    }, 100);
   }
 
   findNodeRecursive(rootNode, id, type) {
@@ -154,23 +210,6 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-
-  private findParent(newPrj, root) {
-    for (let i in root.children) {
-      if (root.children[i].data === newPrj.parentId) {
-        if (!root.children[i].children)
-          root.children[i].children = [];
-        root.children[i].children.push({
-          label: newPrj.title,
-          data: newPrj.id,
-          expandedIcon: "fa fa-folder-open",
-          collapsedIcon: "fa fa-folder",
-        });
-        break;
-      }
-      this.findParent(newPrj, root.children[i]);
-    }
-  }
 
   ngAfterViewInit() {
     this.menuService.animationStart$.subscribe((x) => {
