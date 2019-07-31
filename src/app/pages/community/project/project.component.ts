@@ -13,7 +13,6 @@ import { swiperConfig } from '../swiper.config';
 import { AddStatusTemplateModalComponent } from 'src/app/theme/components/add-status-template-modal/add-status-template-modal.component';
 import { TreeNode } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
-import { treeMockData } from './tree-mock.data';
 import { CompanyService } from 'src/app/services/company.service';
 import { skip } from 'rxjs/operators';
 import { AddProjectModalComponent } from 'src/app/theme/components/add-project-modal/add-project-modal.component';
@@ -67,7 +66,6 @@ export class ProjectComponent implements OnInit, AfterViewInit, OnDestroy {
     const resolvedData = this.route.snapshot.data['resolvedData'];
     this.errorMessage = resolvedData.error;
     this.onDataRetrieved(resolvedData.project);
-    this.filesTree2 = treeMockData;
     this.companyService.getTree(this.project.company.id).subscribe((resp) => {
 
       this.filesTree2 = resp.data;

@@ -1,0 +1,43 @@
+<div class="page-wrapper">
+  <div class="row">
+    <div class="header-wrapper">
+      <app-header></app-header>
+    </div>
+  </div>
+
+  <div class="middle-wrapper">
+    <div class="menu-wrapper" 
+    
+      mwlResizable 
+      [validateResize]="validate"
+      [enableGhostResize]="true"
+      [resizeEdges]="{right: true}" 
+      (resizeEnd)="onResizeEnd($event)"
+      [ngStyle]="style"
+      [resizeSnapGrid]="{ left: 5, right: 5 }"
+    >
+      <div
+        class="resize-handle-right"
+        mwlResizeHandle
+        [resizeEdges]="{ right: true }"
+      >
+        <i class="fas fa-grip-lines-vertical"></i>
+      </div>
+      <app-side-menu></app-side-menu>
+
+    </div>
+
+    <div class="cont-wrapper"    
+
+    >
+      <div class="content-wrapper">
+        fasfsafsaf  fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf
+        <router-outlet></router-outlet>
+
+      </div>
+      <div class="footer-wrapper">
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </div>
+</div>

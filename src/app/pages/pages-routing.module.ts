@@ -7,9 +7,13 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
+  // {
+  //   path: 'community/:id',
+  //   loadChildren: './community/community.module#CommunityModule',
+  // },
   {
-    path: 'community/:id',
-    loadChildren: './community/community.module#CommunityModule',
+    path: 'workspace/:id',
+    loadChildren: './workspace/workspace.module#WorkspaceModule',
   },
 ];
 

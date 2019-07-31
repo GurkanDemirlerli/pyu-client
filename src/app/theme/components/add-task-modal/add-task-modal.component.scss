@@ -13,5 +13,20 @@
 .drag-box {
   background: white;
   border-radius: 20px;
+}
 
+.advanced-toggler {
+  font-size: 13px;
+  color: blue;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.advanced-section {
+  // display: block !important;
+  // overflow: auto;
+}
+
+.show {
+  // display: initial !important;
 }

@@ -20,6 +20,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddProjectModalComponent } from './theme/components/add-project-modal/add-project-modal.component';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { AccordionModule } from 'primeng/accordion';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { AngularDraggableModule } from 'angular2-draggable';
     FontAwesomeModule,
     PanelMenuModule,
     DragDropModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    AccordionModule,
+    CollapseModule.forRoot(),
   ],
   entryComponents: [AddTaskModalComponent, AddStatusTemplateModalComponent, AddProjectModalComponent],
   providers: [

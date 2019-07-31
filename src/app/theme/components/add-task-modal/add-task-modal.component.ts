@@ -11,12 +11,12 @@ import { SubProjectService } from 'src/app/services/sub-project.service';
   styleUrls: ['./add-task-modal.component.scss']
 })
 export class AddTaskModalComponent implements OnInit {
-
+  isCollapsed = true;
   projectId: number;
   projectType: number;
   prId: number;
-  statuses: [];
-  members: [];
+  statuses = [];
+  members = [];
 
   priorities = [
     { value: 0, text: "Extremely Low" },
@@ -37,14 +37,14 @@ export class AddTaskModalComponent implements OnInit {
     description: new FormControl('', Validators.required),
     statusId: new FormControl('', [Validators.required]),
     assignees: new FormControl([]),
-    priority: new FormControl('', [Validators.required])
+    priority: new FormControl('4', [Validators.required])
   });
 
   constructor(
     public bsModalRef: BsModalRef,
     private taskService: TaskService,
     private projectService: ProjectService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -52,6 +52,7 @@ export class AddTaskModalComponent implements OnInit {
     this.projectService.getMembers(this.projectId).subscribe((resp) => {
       console.log(resp.data);
       this.members = resp.data;
+      this.addTaskForm.patchValue({ statusId: this.statuses[0].id })
     });
 
   }

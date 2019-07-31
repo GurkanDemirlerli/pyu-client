@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { faBolt, faChevronDown, faComments, faCodeBranch, faClock, faChevronCircleDown, faChevronUp, faChevronCircleUp, faAngleDoubleUp, faAngleDoubleDown, faAngleUp, faAngleDown, faAngleRight, faColumns } from '@fortawesome/free-solid-svg-icons';
-import { TaskPriorities, TaskPrioritiesReverse } from 'src/app/enums/task-priorities.enum';
+import { TaskPriorities, TaskPrioritiesReverse } from '../../../enums/task-priorities.enum';
 import { Router } from '@angular/router';
 
 @Component({
