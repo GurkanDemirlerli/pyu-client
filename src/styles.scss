@@ -164,7 +164,6 @@ body {
   margin: 0.2rem 0;
   padding: 0 0.5rem;
   text-decoration: none;
-  color: red !important;
 }
 
 .ngx-contextmenu span {
@@ -172,4 +171,31 @@ body {
 }
 .ngx-contextmenu a:hover {
   background: rgb(243, 243, 243);
+}
+
+.hasSubMenu:before {
+  font-size: 11px;
+  color: gray;
+  margin-top: 4px;
+}
+
+body .ui-button.ui-button-icon-only .ui-button-text {
+  padding: 0.6em;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+  background-color: white;
+  border: 0;
+}
+
+body .ui-dialog .ui-dialog-content {
+  border: 0;
+}
+
+body .ui-dialog .ui-dialog-footer {
+  border: 0;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+  font-size: 1.2rem;
 }

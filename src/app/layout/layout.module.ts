@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuService } from './services/menu.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,6 +9,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from 'angular-tree-component';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -20,7 +29,17 @@ import { ContextMenuModule } from 'ngx-contextmenu';
     FontAwesomeModule,
     RouterModule,
     TreeModule.forRoot(),
-    ContextMenuModule.forRoot()
+    ContextMenuModule.forRoot(),
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    InputTextareaModule,
+    CalendarModule,
+    FormsModule,
+    RadioButtonModule,
+    ReactiveFormsModule,
+    MultiSelectModule,
+    DropdownModule
   ],
   exports: [
     FooterComponent,

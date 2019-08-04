@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SubjectService } from './../../services/subject.service';
 import { DomainService } from './../../services/domain.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -26,6 +27,7 @@ import {
 import { ITreeOptions } from 'angular-tree-component';
 import { SubjectTypes } from '../../enums';
 import { of } from 'rxjs';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-side-menu',
@@ -34,6 +36,11 @@ import { of } from 'rxjs';
 })
 
 export class SideMenuComponent implements OnInit {
+  startDate: Date;
+  dueDate: Date;
+
+  display: boolean = false;
+
   @ViewChild('tree', { static: true }) tree;
 
   nodes = [
@@ -73,13 +80,13 @@ export class SideMenuComponent implements OnInit {
     faTasks,
     faSearch
   }
-  constructor(private domainService: DomainService, private subjectService: SubjectService) { }
+  constructor(private fb: FormBuilder, private domainService: DomainService, private subjectService: SubjectService) { }
 
-  name = 'Angular';
-  public items = [
-      { name: 'John', otherProperty: 'Foo' },
-      { name: 'Joe', otherProperty: 'Bar' }
-  ];
+  addFolderForm: FormGroup;
+
+  val1: string = "Project";
+
+  val2: string = "Folder";
 
   ngOnInit() {
     //HARD-CODING getActiveDomains(3)
@@ -95,7 +102,71 @@ export class SideMenuComponent implements OnInit {
       });
       this.nodes = nds;
     });
+
+    this.cars = [
+      { label: 'Audi', value: 'Audi' },
+      { label: 'BMW', value: 'BMW' },
+      { label: 'Fiat', value: 'Fiat' },
+      { label: 'Ford', value: 'Ford' },
+      { label: 'Honda', value: 'Honda' },
+      { label: 'Jaguar', value: 'Jaguar' },
+      { label: 'Mercedes', value: 'Mercedes' },
+      { label: 'Renault', value: 'Renault' },
+      { label: 'VW', value: 'VW' },
+      { label: 'Volvo', value: 'Volvo' },
+    ];
+
+
+    this.initAddFolderForm();
+
+
   }
+
+  ngAfterViewInit(): void {
+    this.addFolderForm.get('subjectType').valueChanges.subscribe((val) => {
+      if (val === '2') {
+        this.addFolderForm.controls['startDate'].setValidators([Validators.required]);
+        this.addFolderForm.controls['startDate'].updateValueAndValidity();
+
+        this.addFolderForm.controls['dueDate'].setValidators([Validators.required]);
+        this.addFolderForm.controls['dueDate'].updateValueAndValidity();
+      } else {
+        this.addFolderForm.controls['startDate'].clearValidators();
+        this.addFolderForm.controls['startDate'].updateValueAndValidity();
+
+        this.addFolderForm.controls['dueDate'].clearValidators();
+        this.addFolderForm.controls['dueDate'].updateValueAndValidity();
+      }
+    })
+  }
+
+  initAddFolderForm() {
+    this.addFolderForm = this.fb.group({
+      name: new FormControl('', Validators.required),
+      subjectType: new FormControl('', Validators.required),
+      startDate: new FormControl(''),
+      dueDate: new FormControl(''),
+      sharings: new FormControl(''),
+      parentId: new FormControl('', Validators.required)
+    });
+    // this.addFolderForm.get('subjectType').patchValue('2', { onlySelf: true });
+    setTimeout(() => {
+      this.addFolderForm.get('subjectType').setValue('2');
+    }, 0)
+  }
+
+  onAddFolderFormSubmit(v) {
+    console.log(this.addFolderForm.value);
+  }
+
+  tst() {
+    console.log(this.addFolderForm.get('subjectType').value);
+  }
+
+  get subjectType() {
+    return this.addFolderForm.get('subjectType');
+  }
+
 
   @ViewChild(ContextMenuComponent, { static: true }) public basicMenu: ContextMenuComponent;
 
@@ -110,24 +181,8 @@ export class SideMenuComponent implements OnInit {
       node.collapse();
   }
 
-
-  onEvent(e) {
-    // if (!e.node.data.isFetched) {
-    //   this.subjectService.getDescendantsTree(e.node.data.subjectId).subscribe((res) => {
-    //     e.node.data.isFetched = true;
-    //     console.log(res.data);
-    //     let subFolds = res.data.filter(sbj => sbj.subjectType === SubjectTypes.FOLDER || sbj.subjectType === SubjectTypes.PROJECT);
-    //     console.log(subFolds);
-    //     let tr = this.addChildrensToFolders(e.node.data.subjectId, subFolds);
-    //     console.log("NESTED:", tr);
-    //     let node = this.nodes.find(x => x.subjectId === e.node.data.subjectId);
-    //     node.children = tr;
-    //     let others = this.nodes.filter(x => x.subjectId !== e.node.data.subjectId);
-    //     this.nodes = [...others, node];
-    //   });
-    // }
-
-    // console.log(e);
+  showDialog(e) {
+    this.display = true;
   }
 
   addChildrensToFolders(parentId, arr) {
@@ -147,16 +202,6 @@ export class SideMenuComponent implements OnInit {
     return out;
   }
 
-
-  // asyncChildren = [
-  //   {
-  //     name: 'child1',
-  //     hasChildren: true
-  //   }, {
-  //     name: 'child2'
-  //   }
-  // ];
-
   getChildren(node: any) {
     return new Promise((resolve, reject) => {
       this.subjectService.getDescendantsTree(node.data.subjectId).subscribe((res) => {
@@ -166,9 +211,17 @@ export class SideMenuComponent implements OnInit {
       });
     });
 
-    // return new Promise((resolve, reject) => {
-    //   setTimeout(() => resolve(newNodes), 1000);
-    // });
   }
+
+  onNodeMove(e) {
+    console.log(e);
+    this.subjectService.move(e.node.subjectId, e.to.parent.subjectId).subscribe((res) => {
+      
+    });
+  }
+
+
+  cars: SelectItem[];
+
 
 }

@@ -18,4 +18,12 @@ export class SubjectService {
         return this.http.get<any>(this.serverDomain + `subjects/descendants/${subjectId}`);
     }
 
+    move(childId: number, parentId: number) {
+        let model = {
+            childId,
+            parentId
+        };
+        return this.http.post<any>(this.serverDomain + 'subjects/move', model);
+    }
+
 }

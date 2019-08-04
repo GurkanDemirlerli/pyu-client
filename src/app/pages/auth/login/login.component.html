@@ -1,0 +1,62 @@
+<section class="clear">
+
+  <div id="userlogin" class="withmargins">
+    <div class="left">
+      <form action="" class="content">
+        <h2>Hello</h2>
+        <p>Ready to start tracking your personal stats? Sign in or sign up, it just takes a second.</p>
+        <label class="fill top" for="username"><input type="text" name="username"
+            id="username"><span>username</span></label>
+        <label class="fill bottom" for="password"><input type="password" name="password"
+            id="password"><span>password</span></label>
+        <div class="notes">
+          <label for="remember" class="remember"><input type="checkbox" id="remember" name="remember"><span>Remember
+              me</span></label>
+          <a href="" id="forgotpwd">forgot password?</a>
+        </div>
+
+        <div class="submit">
+          <label for="login"><input type="submit" value="Sign in" id="login"></label>
+          <label for="signup"><input type="submit" value="sign up" id="signup" [routerLink]="['/auth/register']" ></label>
+        </div>
+        <p class="smallinfo">Your data will not be used outside of lorem.com. By signing up you agree that your
+          statistics may be used anonymously inside lorem.com.</p>
+
+      </form>
+    </div>
+    <div class="right">
+      <div class="slider">
+
+        <div class="slide">
+          <div class="slide-img-bg">
+            <img src="https://previews.123rf.com/images/aimage/aimage1605/aimage160500041/58671501-project-management-conceptual-background-as-vector-illustration-with-different-symbols.jpg" alt="background image">
+          </div>
+
+          <div class="slide-title">
+            <h3>lorem ipsum</h3>
+          </div>
+          <div class="slide-description">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, voluptates? Voluptatem delectus
+              quibusdam repellendus voluptates iste aut, adipisci esse eos culpa facere eaque laudantium vero sunt
+              corporis sit illum earum.</p>
+            <p>Lorem ips non neque nobis fugiat iste magni cum dolorum natus praesentium quam delectus optio, quis
+              eveniet?</p>
+          </div>
+          <div class="slide-img-content">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="forgotmodal">
+  <a href="" id="closemodal">close</a>
+  <p>Insert your email</p>
+  <label for="emailforgot"><input name="emailforgot" type="email" placeholder="email" id="emailforgot"></label>
+  <p class="info">Email not associated with any user.</p>
+  <p class="info pos">Reset instructions sent to email.</p>
+  <a id="requestpwd" class="btn">Request reset</a>
+</div>

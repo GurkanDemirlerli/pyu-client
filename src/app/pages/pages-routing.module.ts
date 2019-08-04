@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'workspace/:id',
     loadChildren: './workspace/workspace.module#WorkspaceModule',
   },
+  {
+    path: 'auth',
+    loadChildren: './auth/auth.module#AuthModule',
+  },
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ import {
   SwiperModule, SwiperConfigInterface,
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
+import { AuthComponent } from './auth/auth.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -22,7 +23,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PagesComponent,
     HomeComponent,
   ],
-  imports: [PagesRoutingModule,SwiperModule],
+  imports: [PagesRoutingModule, SwiperModule],
   exports: [],
   providers: [{
     provide: SWIPER_CONFIG,
