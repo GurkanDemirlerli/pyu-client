@@ -1,0 +1,93 @@
+<form [formGroup]="addFolderForm" (ngSubmit)="onAddFolderFormSubmit(addFolderForm.value)">
+
+  <p-dialog header="Create Project" [(visible)]="display" [modal]="true" [responsive]="true"
+    [contentStyle]="{'overflow':'visible'}" [style]="{width: '500px', minWidth: '200px'}" [minY]="70"
+    [maximizable]="true" [baseZIndex]="10000">
+    <div class="ui-g ui-fluid">
+      <!-- <div class="ui-g-12" style="margin-top: 10px;">
+        <span>Location</span>
+        <p-dropdown [options]="cars" formControlName="parentId" filter="true">
+          <ng-template let-item pTemplate="selectedItem">
+            <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{item.label}}.png"
+              style="width:16px;vertical-align:middle" />
+            <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+          </ng-template>
+          <ng-template let-car pTemplate="item">
+            <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+              <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{car.label}}.png"
+                style="width:24px;position:absolute;top:1px;left:5px" />
+              <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div> -->
+      <div class="ui-g-12 ui-md-12">
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+          His beloved son Michael has just come home from the war, but does not intend to become part of his father's
+          business..
+        </p>
+      </div>
+
+      <div class="ui-g-12 ">
+        <p-radioButton formControlName="subjectType" name="group2" value="2" label="Project" inputId="preopt1">
+        </p-radioButton>
+      </div>
+      <div class="ui-g-12">
+        <p-radioButton formControlName="subjectType" name="group2" value="1" label="Folder" inputId="preopt2">
+        </p-radioButton>
+      </div>
+
+      <div class="ui-g-12" style="margin-top: 10px;">
+        <span class="ui-float-label">
+          <input id="float-input" formControlName="name" type="text" size="30" pInputText>
+          <label for="float-input">Name</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12 ui-md-6" *ngIf="subjectType.value === '2'">
+        <span>Start Date</span>
+        <p-calendar formControlName="startDate" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+          yearRange="2000:2030">
+        </p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-6" *ngIf="subjectType.value === '2'">
+        <span>Due Date</span>
+        <p-calendar formControlName="dueDate" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+          yearRange="2000:2030">
+        </p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-12">
+        <p-multiSelect [options]="members" formControlName="sharings" [panelStyle]="{}">
+          <ng-template let-value pTemplate="selectedItems">
+            <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+              <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{'BMW'}}.png"
+                style="width:20px;vertical-align:middle;margin-right:.5em" />
+              <span>{{val}}</span>
+            </div>
+            <span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all">Chose Who Can
+              Access To This Folder</span>
+          </ng-template>
+          <ng-template let-member pTemplate="item">
+            <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{'BMW'}}.png"
+              style="width:24px;display:inline-block;vertical-align:middle" />
+            <div style="font-size:14px;float:right;margin-top:4px">{{member.label | titlecase}}</div>
+          </ng-template>
+        </p-multiSelect>
+      </div>
+
+    </div>
+    <p-footer>
+      <button type="submit" pButton icon="pi pi-check" label="Save"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="tst()" label="Cancel"
+        class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
+</form>
+
+<!-- 
+<p-dialog header="Create Project" [(visible)]="display" [responsive]="true" [contentStyle]="{'overflow':'visible'}"
+  [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+
+</p-dialog> -->

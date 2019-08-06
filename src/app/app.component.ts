@@ -10,8 +10,8 @@ export class AppComponent {
   title = 'pyu-client';
 
   constructor(private authService: AuthService) {
-    this.authService.login().subscribe(() => {
+    // this.authService.login().subscribe(() => {
       
-    });
+    // });
   }
 }

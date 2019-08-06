@@ -12,7 +12,8 @@
       <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }">
         <i class="fas fa-grip-lines-vertical"></i>
       </div>
-      <app-side-menu [workspaceId]="workspaceId"></app-side-menu>
+      <app-side-menu [options]="options" (onNodeMove)="handleNodeMove($event)" [(nodes)]="nodes"
+        (onAddFolderSelect)="onAddFolderSelect($event)"></app-side-menu>
 
     </div>
 
@@ -29,3 +30,6 @@
     </div>
   </div>
 </div>
+
+<pyu-add-folder-form (onSubjectAdded)="handleSubjectAdded($event)" [(display)]="display.addFolderForm"
+  [workspaceId]="workspaceId" [defaultParent]="selectedMenuSubject"></pyu-add-folder-form>

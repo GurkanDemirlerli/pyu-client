@@ -1,0 +1,92 @@
+<div class="pr-menu">
+  <div class="search-wrapper">
+    <fa-icon [icon]="icons.faSearch"></fa-icon>
+    <input type="text" class="search" placeholder="Ara">
+  </div>
+
+  <tree-root #tree [nodes]="nodes" [options]="options" (moveNode)="handleNodeMove($event)">
+    <ng-template #treeNodeTemplate let-node let-index="index">
+      <div class="cntx" [contextMenu]="basicMenu" [contextMenuSubject]="node">
+
+        <ng-container *ngIf="node.data.subjectType === 0; else folder">
+          <span class="domain-logo">
+            <img *ngIf="index % 5 === 0"
+              src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-twitter-circle-128.png"
+              alt="">
+            <img *ngIf="index % 5 === 1"
+              src="https://cdn2.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-whatsapp-circle-512.png"
+              alt="">
+            <img *ngIf="index % 5 === 2"
+              src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png"
+              alt="">
+            <img *ngIf="index % 5 === 3"
+              src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-reddit-circle-256.png"
+              alt="">
+            <img *ngIf="index % 5 === 4"
+              src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-youtube-square1-256.png"
+              alt="">
+          </span>
+          <span>{{ node.data.name | titlecase}}</span>
+          <span class="expander" (click)="toggleExpanded(node)" style="float: right; color: gray;">
+            <i class="fas fa-chevron-down" *ngIf="!node.isCollapsed"></i>
+            <i class="fas fa-chevron-right" *ngIf="node.isCollapsed"></i>
+
+          </span>
+        </ng-container>
+        <ng-template #folder>
+          <span>{{ node.data.name | titlecase}}</span>
+        </ng-template>
+
+      </div>
+    </ng-template>
+  </tree-root>
+</div>
+
+<context-menu>
+  <ng-template contextMenuItem let-item>
+    <span class="context-item">
+      {{item.data.name}}
+    </span>
+  </ng-template>
+  <ng-template contextMenuItem divider="true"></ng-template>
+
+  <ng-template contextMenuItem [subMenu]="addMenu">
+    <span class="context-item">
+      Add
+    </span>
+  </ng-template>
+
+  <context-menu #addMenu>
+    <ng-template contextMenuItem (execute)="handleAddFolderSelect($event)">
+      <span class="context-item">
+        Project
+      </span>
+    </ng-template>
+    <ng-template contextMenuItem>
+      <span class="context-item">
+        Folder
+      </span>
+    </ng-template>
+  </context-menu>
+
+  <ng-template contextMenuItem divider="true"></ng-template>
+  <ng-template contextMenuItem let-item>
+    <span class="context-item">
+      Rename
+    </span>
+  </ng-template>
+  <ng-template contextMenuItem divider="true"></ng-template>
+  <ng-template contextMenuItem let-item>
+    <span class="context-item">
+      Duplicate
+    </span>
+  </ng-template>
+  <ng-template contextMenuItem divider="true"></ng-template>
+  <ng-template contextMenuItem let-item>
+    <span class="context-item">
+      Delete
+    </span>
+  </ng-template>
+
+</context-menu>
+
