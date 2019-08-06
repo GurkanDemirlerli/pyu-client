@@ -12,16 +12,17 @@ import { SubjectTypes } from 'src/app/enums';
   styleUrls: ['./workspace.component.scss']
 })
 export class WorkspaceComponent implements OnInit {
-  selectedMenuSubject;
-  workspaceId: number;
-  nodes = [];
-  style: object = {};
 
-  display = {
+  //#region Props
+  public selectedMenuSubject;
+  public workspaceId: number;
+  public nodes = [];
+  public style: object = {};
+  public display = {
     addFolderForm: false
   };
 
-  options: ITreeOptions = {
+  public options: ITreeOptions = {
     allowDrag: (node) => node.data.subjectType !== SubjectTypes.DOMAIN,
     allowDrop: (element, { parent, index }) => {
       if (parent.parent === null)
@@ -33,11 +34,15 @@ export class WorkspaceComponent implements OnInit {
     getChildren: this.getChildren.bind(this),
   };
 
+  //#endregion
+
   constructor(
     private route: ActivatedRoute,
     private domainService: DomainService,
     private subjectService: SubjectService
   ) { }
+
+  //#region Life Cycle
 
   ngOnInit() {
     this.route.params.pipe().subscribe(routeParams => {
@@ -48,32 +53,46 @@ export class WorkspaceComponent implements OnInit {
     });
   }
 
-  validate(event: ResizeEvent): boolean {
-    const MIN_DIMENSIONS_PX: number = 50;
-    if (
-      event.rectangle.width &&
-      event.rectangle.height &&
-      (event.rectangle.width < MIN_DIMENSIONS_PX ||
-        event.rectangle.height < MIN_DIMENSIONS_PX)
-    ) {
-      return false;
-    }
-    return true;
-  }
+  //#endregion
 
-  onResizeEnd(event: ResizeEvent): void {
+
+  //#region Handlers
+
+  handleResizeEnd(event: ResizeEvent): void {
     console.log('Element was resized', event);
     this.style = {
       width: `${event.rectangle.width}px`,
     };
   }
 
-  onAddFolderSelect(e) {
+  handleAddFolderSelect(e) {
     this.selectedMenuSubject = e.item.data;
     this.display = { ...this.display, addFolderForm: true };
   }
 
-  fetchNodes() {
+  handleNodeMove(e) {
+    console.log(e);
+    this.subjectService.move(e.node.subjectId, e.to.parent.subjectId).subscribe((res) => {
+    });
+  }
+
+  handleSubjectAdded(e) {
+    for (let i in this.nodes) {
+      if (this.nodes[i].subjectId == e.parentId) {
+        if (!this.nodes[i].children)
+          this.nodes[i].children = [];
+        this.nodes[i].children = [...this.nodes[i].children, e];
+        this.nodes = [...this.nodes];
+        console.log("found");
+        break;
+      }
+      this.bindNewSubjectToParent(this.nodes[i], e);
+    }
+  }
+
+  //#endregion
+
+  private fetchNodes() {
     let nds = [];
     this.domainService.getActiveDomains(this.workspaceId).subscribe((res) => {
       console.log(res.data);
@@ -97,7 +116,7 @@ export class WorkspaceComponent implements OnInit {
     });
   }
 
-  addChildrensToFolders(parentId, arr) {
+  private addChildrensToFolders(parentId, arr) {
     var out = []
     for (var i in arr) {
       if (arr[i].parentId == parentId) {
@@ -114,27 +133,7 @@ export class WorkspaceComponent implements OnInit {
     return out;
   }
 
-  handleNodeMove(e) {
-    console.log(e);
-    this.subjectService.move(e.node.subjectId, e.to.parent.subjectId).subscribe((res) => {
-    });
-  }
-
-  handleSubjectAdded(e) {
-    for (let i in this.nodes) {
-      if (this.nodes[i].subjectId == e.parentId) {
-        if (!this.nodes[i].children)
-          this.nodes[i].children = [];
-        this.nodes[i].children = [...this.nodes[i].children, e];
-        this.nodes = [...this.nodes];
-        console.log("found");
-        break;
-      }
-      this.bindNewSubjectToParent(this.nodes[i], e);
-    }
-  }
-
-  bindNewSubjectToParent(root, newSubject: any) {
+  private bindNewSubjectToParent(root, newSubject: any) {
     for (let i in root.children) {
       if (root.children[i].subjectId == newSubject.parentId) {
         if (!root.children[i].children)
@@ -146,5 +145,18 @@ export class WorkspaceComponent implements OnInit {
       }
       this.bindNewSubjectToParent(root.children[i], newSubject);
     }
+  }
+
+  public validate(event: ResizeEvent): boolean {
+    const MIN_DIMENSIONS_PX: number = 50;
+    if (
+      event.rectangle.width &&
+      event.rectangle.height &&
+      (event.rectangle.width < MIN_DIMENSIONS_PX ||
+        event.rectangle.height < MIN_DIMENSIONS_PX)
+    ) {
+      return false;
+    }
+    return true;
   }
 }

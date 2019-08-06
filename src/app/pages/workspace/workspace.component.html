@@ -7,13 +7,13 @@
 
   <div class="middle-wrapper">
     <div class="menu-wrapper" mwlResizable [validateResize]="validate" [enableGhostResize]="true"
-      [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)" [ngStyle]="style"
+      [resizeEdges]="{right: true}" (resizeEnd)="handleResizeEnd($event)" [ngStyle]="style"
       [resizeSnapGrid]="{ left: 5, right: 5 }">
       <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }">
         <i class="fas fa-grip-lines-vertical"></i>
       </div>
       <app-side-menu [options]="options" (onNodeMove)="handleNodeMove($event)" [(nodes)]="nodes"
-        (onAddFolderSelect)="onAddFolderSelect($event)"></app-side-menu>
+        (onAddFolderSelect)="handleAddFolderSelect($event)"></app-side-menu>
 
     </div>
 
