@@ -1,0 +1,47 @@
+.workspace {
+  display: block;
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  border: 1px solid #e0e0e0;
+    border-radius: 20px;
+  &:last-child {
+    margin-bottom: 0rem;
+  }
+  &-list {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1.3rem;
+    margin: auto;
+    border: 1px solid rgb(194, 194, 194);
+    box-shadow: aliceblue;
+    box-shadow: 0px 0px 10px 0px #bbbbbb;
+    border-radius: 1rem;
+    &-wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      background: rgb(238, 238, 238);
+    }
+  }
+
+  &-banner {
+    display: inline-block;
+    margin-right: 2.5rem;
+    img {
+      width: 150px;
+      height: 30px;
+    }
+  }
+
+  &-name {
+    display: inline-block;
+    color: gray;
+  }
+
+  &:hover {
+    background: rgb(238, 238, 238);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+}

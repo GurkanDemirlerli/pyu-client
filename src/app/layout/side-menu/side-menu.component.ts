@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SubjectService } from './../../services/subject.service';
 import { DomainService } from './../../services/domain.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import {
   faUserLock,
@@ -36,6 +36,7 @@ import { SelectItem } from 'primeng/api';
 })
 
 export class SideMenuComponent implements OnInit {
+  @Input() workspaceId: number;
   startDate: Date;
   dueDate: Date;
 
@@ -80,7 +81,11 @@ export class SideMenuComponent implements OnInit {
     faTasks,
     faSearch
   }
-  constructor(private fb: FormBuilder, private domainService: DomainService, private subjectService: SubjectService) { }
+  constructor(
+    private fb: FormBuilder,
+    private domainService: DomainService,
+    private subjectService: SubjectService,
+  ) { }
 
   addFolderForm: FormGroup;
 
@@ -89,10 +94,9 @@ export class SideMenuComponent implements OnInit {
   val2: string = "Folder";
 
   ngOnInit() {
-    //HARD-CODING getActiveDomains(3)
     this.nodes = [];
     let nds = [];
-    this.domainService.getActiveDomains(3).subscribe((res) => {
+    this.domainService.getActiveDomains(this.workspaceId).subscribe((res) => {
       console.log(res.data);
       (res.data as any[]).map((root) => {
         nds.push({
@@ -216,7 +220,7 @@ export class SideMenuComponent implements OnInit {
   onNodeMove(e) {
     console.log(e);
     this.subjectService.move(e.node.subjectId, e.to.parent.subjectId).subscribe((res) => {
-      
+
     });
   }
 

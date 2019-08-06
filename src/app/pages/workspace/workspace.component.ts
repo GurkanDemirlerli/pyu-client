@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
@@ -7,10 +8,16 @@ import { ResizeEvent } from 'angular-resizable-element';
   styleUrls: ['./workspace.component.scss']
 })
 export class WorkspaceComponent implements OnInit {
+  workspaceId: number;
   public style: object = {};
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.pipe().subscribe(routeParams => {
+      console.log(routeParams);
+      this.workspaceId = routeParams.id;
+      console.log(this.workspaceId);
+    });
   }
 
   validate(event: ResizeEvent): boolean {

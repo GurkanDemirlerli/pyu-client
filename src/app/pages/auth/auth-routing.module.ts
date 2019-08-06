@@ -1,3 +1,4 @@
+import { LogoutComponent } from './logout/logout.component';
 import { ForgotPaswordComponent } from './forgot-pasword/forgot-pasword.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthComponent } from './auth.component';
@@ -19,6 +20,9 @@ const routes: Routes = [
             }, {
                 path: 'forgot-password',
                 component: ForgotPaswordComponent,
+            }, {
+                path: 'logout',
+                component: LogoutComponent,
             }]
     },
 ];

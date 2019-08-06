@@ -1,0 +1,13 @@
+<div class="workspace-list-wrapper">
+  <div class="workspace-list">
+    <h5 style="margin:0 auto; margin-bottom: 20px; color:gray;">Choose a workspace</h5>
+    <div class="workspace" *ngFor="let ws of workspaces" [routerLink]="['/workspace/'+ws.workspaceId]">
+      <div class="workspace-banner">
+        <img src="assets/mini-banner.png" alt="">
+      </div>
+      <div class="workspace-name">
+        {{ws.name}}
+      </div>
+    </div>
+  </div>
+</div>

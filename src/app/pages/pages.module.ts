@@ -7,6 +7,7 @@ import {
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
 import { AuthComponent } from './auth/auth.component';
+import { WorkspaceChoosingComponent } from './workspace-choosing/workspace-choosing.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -22,6 +23,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   declarations: [
     PagesComponent,
     HomeComponent,
+    WorkspaceChoosingComponent,
   ],
   imports: [PagesRoutingModule, SwiperModule],
   exports: [],

@@ -13,7 +13,7 @@
         <img class="logo" src="assets/logo.png" alt="">
       </div>
 
-      <div class="actions" >
+      <div class="actions">
         <div class="search-wrapper">
           <fa-icon [icon]="icons.faSearch"></fa-icon>
           <input type="text" class="search" placeholder="Ara">
@@ -22,7 +22,7 @@
         <!--AUTH-->
         <div class="auth-wrapper">
 
-          <div class="auth-action" (click)="onLogoutClick()">
+          <div class="auth-action" [routerLink]="['/auth/logout']">
             <div class="auth-action-logo">
               <fa-icon [icon]="icons.faSignOutAlt"></fa-icon>
             </div>
@@ -50,7 +50,7 @@
     <!--AUTH-->
     <div class="auth-wrapper">
 
-      <div class="auth-action" (click)="onLogoutClick()">
+      <div class="auth-action" [routerLink]="['/auth/logout']">
         <div class="auth-action-logo">
           <fa-icon [icon]="icons.faSignOutAlt"></fa-icon>
         </div>

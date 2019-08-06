@@ -2,22 +2,32 @@
 
   <div id="userlogin" class="withmargins">
     <div class="left">
-      <form action="" class="content">
+      <form class="content" *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(loginForm.value)">
         <h2>Hello</h2>
         <p>Ready to start tracking your personal stats? Sign in or sign up, it just takes a second.</p>
-        <label class="fill top" for="username"><input type="text" name="username"
-            id="username"><span>username</span></label>
-        <label class="fill bottom" for="password"><input type="password" name="password"
-            id="password"><span>password</span></label>
+        <label class="fill top" for="username">
+          <input formControlName="email" type="text" name="username" id="username">
+          <span>username</span>
+        </label>
+        <label class="fill bottom" for="password">
+          <input formControlName="password" type="password" name="password" id="password">
+          <span>password</span>
+        </label>
         <div class="notes">
-          <label for="remember" class="remember"><input type="checkbox" id="remember" name="remember"><span>Remember
-              me</span></label>
+          <label for="remember" class="remember">
+            <input type="checkbox" id="remember" name="remember">
+            <span>Remember me</span>
+          </label>
           <a href="" id="forgotpwd">forgot password?</a>
         </div>
 
         <div class="submit">
-          <label for="login"><input type="submit" value="Sign in" id="login"></label>
-          <label for="signup"><input type="submit" value="sign up" id="signup" [routerLink]="['/auth/register']" ></label>
+          <label for="login">
+            <input type="submit" value="Sign in" id="login">
+          </label>
+          <label for="signup">
+            <input type="button" value="sign up" id="signup" [routerLink]="['/auth/register']">
+          </label>
         </div>
         <p class="smallinfo">Your data will not be used outside of lorem.com. By signing up you agree that your
           statistics may be used anonymously inside lorem.com.</p>
@@ -29,7 +39,9 @@
 
         <div class="slide">
           <div class="slide-img-bg">
-            <img src="https://previews.123rf.com/images/aimage/aimage1605/aimage160500041/58671501-project-management-conceptual-background-as-vector-illustration-with-different-symbols.jpg" alt="background image">
+            <img
+              src="https://previews.123rf.com/images/aimage/aimage1605/aimage160500041/58671501-project-management-conceptual-background-as-vector-illustration-with-different-symbols.jpg"
+              alt="background image">
           </div>
 
           <div class="slide-title">
