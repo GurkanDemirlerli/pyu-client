@@ -6,32 +6,41 @@
   </div>
 
   <div class="middle-wrapper">
-    <div class="menu-wrapper" mwlResizable [validateResize]="validate" [enableGhostResize]="true"
+    <div class="menu-wrapper" mwlResizable [validateResize]="validate()" [enableGhostResize]="true"
       [resizeEdges]="{right: true}" (resizeEnd)="handleResizeEnd($event)" [ngStyle]="style"
       [resizeSnapGrid]="{ left: 5, right: 5 }">
       <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }">
         <i class="fas fa-grip-lines-vertical"></i>
       </div>
-      <app-side-menu (onActivate)="handleSubjectSelected($event)" [options]="options" (onNodeMove)="handleNodeMove($event)"
-        [(nodes)]="nodes" (onAddFolderSelect)="handleAddFolderSelect($event)"></app-side-menu>
+      <app-side-menu (onActivate)="handleSubjectSelected($event)" [options]="options"
+        (onNodeMove)="handleNodeMove($event)" [(nodes)]="nodes" (onAddFolderSelect)="handleAddFolderSelect($event)">
+      </app-side-menu>
 
     </div>
 
     <div class="cont-wrapper">
       <div class="content-wrapper">
-        <p-breadcrumb [model]="brItems" [home]="home"></p-breadcrumb>
-        <p-tabMenu [activeItem]="activeTabItem" [model]="tabItems">
-          <ng-template pTemplate="item" let-item let-i="index">
-            <div style="position: relative; text-align: center; min-width: 10em" (click)="handleTabClick(item)">
-              <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
-              <div class="ui-menuitem-text">
-                {{item.label}}
-              </div>
-            </div>
-          </ng-template>
-        </p-tabMenu>
-        <router-outlet></router-outlet>
 
+        <!-- <router-outlet></router-outlet> -->
+        <ng-container *ngIf="selectedFolderId" [ngSwitch]="folderDisplayType">
+          <p-breadcrumb [model]="brItems" [home]="home"></p-breadcrumb>
+          <p-tabMenu [activeItem]="activeTabItem" [model]="tabItems">
+            <ng-template pTemplate="item" let-item let-i="index">
+              <div style="position: relative; text-align: center; min-width: 10em" (click)="handleTabClick(item)">
+                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
+                <div class="ui-menuitem-text">
+                  {{item.label}}
+                </div>
+              </div>
+            </ng-template>
+          </p-tabMenu>
+          <pyu-kanban-board [workflow]="selectedFolderWorkflow" [menuSize]="menusize" *ngSwitchCase="'kanban'">
+          </pyu-kanban-board>
+          <pyu-table-view *ngSwitchCase="'table'"></pyu-table-view>
+          <p *ngSwitchDefault>
+            HARD-CODING Switch Case olmadı.
+          </p>
+        </ng-container>
       </div>
       <div class="footer-wrapper">
         <app-footer></app-footer>

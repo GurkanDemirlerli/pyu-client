@@ -11,23 +11,23 @@ const routes: Routes = [
   {
     path: '',
     component: WorkspaceComponent,
-    children: [
-      {
-        path: 'folder/:folderId/kanban',
-        component: KanbanBoardComponent,
-      }, {
-        path: 'folder/:folderId/table',
-        component: TableViewComponent,
-      }, {
-        path: 'folder/:folderId/gantt',
-        component: GanttViewComponent,
-      }, {
-        path: 'folder/:folderId/timelog',
-        component: TimelogViewComponent,
-      }, {
-        path: 'folder/:folderId/analytics',
-        component: AnalyticsViewComponent,
-      }]
+    // children: [
+    //   {
+    //     path: 'folder/:folderId/kanban',
+    //     component: KanbanBoardComponent,
+    //   }, {
+    //     path: 'folder/:folderId/table',
+    //     component: TableViewComponent,
+    //   }, {
+    //     path: 'folder/:folderId/gantt',
+    //     component: GanttViewComponent,
+    //   }, {
+    //     path: 'folder/:folderId/timelog',
+    //     component: TimelogViewComponent,
+    //   }, {
+    //     path: 'folder/:folderId/analytics',
+    //     component: AnalyticsViewComponent,
+    //   }]
   },
 ];
 

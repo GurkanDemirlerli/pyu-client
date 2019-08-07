@@ -1,11 +1,13 @@
+import { WorkflowService } from './../../services/workflow.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 import { DomainService } from '../../services/domain.service';
 import { SubjectService } from '../../services/subject.service';
 import { ITreeOptions } from 'angular-tree-component';
 import { SubjectTypes } from 'src/app/enums';
 import { MenuItem } from 'primeng/api';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'pyu-workspace',
@@ -37,12 +39,18 @@ export class WorkspaceComponent implements OnInit {
     getChildren: this.getChildren.bind(this),
   };
 
-
   public brItems: any[] = [];
   public tabItems: any[];
   public activeTabItem;
 
-  public selectedFolder
+  public selectedFolder;
+  private onRouterFolderChange$;
+
+  public selectedFolderWorkflow;
+
+  public folderDisplayType = "kanban";
+
+  public menusize;
 
   //#endregion
 
@@ -50,7 +58,9 @@ export class WorkspaceComponent implements OnInit {
     private route: ActivatedRoute,
     private domainService: DomainService,
     private subjectService: SubjectService,
-    private router: Router
+    private router: Router,
+    private workflowService: WorkflowService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   //#region Life Cycle
@@ -71,20 +81,7 @@ export class WorkspaceComponent implements OnInit {
       { label: 'Analytics', route: 'analytics', icon: 'fas fa-chart-line' }
     ];
 
-    this.route.firstChild.params.pipe().subscribe(routeParams => {
-      console.log(routeParams);
-      if (routeParams.folderId !== undefined) {
-        this.selectedFolderId = routeParams.folderId;
-        console.log(this.selectedFolderId);
-        this.subjectService.getAncestorsTree(this.selectedFolderId).subscribe((res) => {
-          this.selectedFolderAncestors = this.populateAncestors(res.data);
-          console.log("ANCESTOR TREE", this.selectedFolderAncestors);
-          this.updateBreadCrumbs();
-        });
-      }
-    });
-
-    // this.activeTabItem = this.tabItems[0];
+    this.menusize = { value: 0 };
   }
 
   //#endregion
@@ -92,25 +89,26 @@ export class WorkspaceComponent implements OnInit {
 
   //#region Handlers
 
-  handleResizeEnd(event: ResizeEvent): void {
+  public handleResizeEnd(event: ResizeEvent): void {
     console.log('Element was resized', event);
     this.style = {
       width: `${event.rectangle.width}px`,
     };
+    this.menusize = { ...this.menusize, value: 0 };
   }
 
-  handleAddFolderSelect(e) {
+  public handleAddFolderSelect(e) {
     this.selectedMenuSubject = e.item.data;
     this.display = { ...this.display, addFolderForm: true };
   }
 
-  handleNodeMove(e) {
+  public handleNodeMove(e) {
     console.log(e);
     this.subjectService.move(e.node.subjectId, e.to.parent.subjectId).subscribe((res) => {
     });
   }
 
-  handleSubjectAdded(e) {
+  public handleSubjectAdded(e) {
     for (let i in this.nodes) {
       if (this.nodes[i].subjectId == e.parentId) {
         if (!this.nodes[i].children)
@@ -124,14 +122,21 @@ export class WorkspaceComponent implements OnInit {
     }
   }
 
-  handleTabClick(e) {
+  public handleTabClick(e) {
     console.log(e);
     //HARD-CODING folder
-    this.router.navigate([`/workspace/${this.workspaceId}/folder/1/${e.route}`])
   }
   //HARD-CODING kanban
-  handleSubjectSelected(e) {
-    this.router.navigate([`/workspace/${this.workspaceId}/folder/${e.node.data.subjectId}/kanban`])
+  public handleSubjectSelected(e) {
+    //ikisi de çözümlendikten sonra selectedFolderId yi değiştir.
+    this.subjectService.getAncestorsTree(e.node.data.subjectId).pipe(take(1)).subscribe((res) => {
+      this.selectedFolderAncestors = this.populateAncestors(res.data);
+      this.updateBreadCrumbs();
+    });
+    this.workflowService.getActiveWorkflow(e.node.data.subjectId).pipe(take(1)).subscribe((res) => {
+      this.selectedFolderWorkflow = res.data;
+      this.selectedFolderId = e.node.data.subjectId;
+    });
   }
 
   //#endregion
@@ -232,16 +237,24 @@ export class WorkspaceComponent implements OnInit {
     this.brItems = [...brItems];
   }
 
-  public validate(event: ResizeEvent): boolean {
-    const MIN_DIMENSIONS_PX: number = 50;
-    if (
-      event.rectangle.width &&
-      event.rectangle.height &&
-      (event.rectangle.width < MIN_DIMENSIONS_PX ||
-        event.rectangle.height < MIN_DIMENSIONS_PX)
-    ) {
-      return false;
+  public validate() {
+    return (event: ResizeEvent) => {
+      const MIN_DIMENSIONS_PX: number = 50;
+      if (
+        event.rectangle.width &&
+        event.rectangle.height &&
+        (event.rectangle.width < MIN_DIMENSIONS_PX ||
+          event.rectangle.height < MIN_DIMENSIONS_PX)
+      ) {
+        return false;
+      }
+
+      return true;
     }
-    return true;
+
   }
+
+  // ngOnDestroy(): void {
+  //   this.onRouterFolderChange$.unsubscribe();
+  // }
 }

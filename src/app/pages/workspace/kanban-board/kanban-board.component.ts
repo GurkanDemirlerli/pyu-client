@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { SubjectService } from './../../../services/subject.service';
 import { swiperConfig } from './swiper.config';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer, Input, Output, EventEmitter, Self, SimpleChanges, SimpleChange } from '@angular/core';
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface
 } from 'ngx-swiper-wrapper';
@@ -10,6 +10,8 @@ import { Subject, Subscription } from 'rxjs';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { MenuService } from 'src/app/layout/services/menu.service';
 import { faChevronLeft, faChevronRight, faColumns, faFilter, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { ElementQueries, ResizeSensor } from 'css-element-queries';
+
 
 @Component({
   selector: 'pyu-kanban-board',
@@ -50,27 +52,54 @@ export class KanbanBoardComponent implements OnInit {
   @ViewChildren(StatusPanelComponent) statusPanelRefs: QueryList<StatusPanelComponent>;
   @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
 
+
+  workflowValue: any;
+  @Input()
+  get workflow() {
+    return this.workflowValue;
+  }
+  set workflow(val) {
+    this.workflowValue = val;
+    if (this.isViewInit) {
+      this.directiveRef.update();
+      console.log("Resized");
+    }
+    console.log("isViewInit", this.isViewInit);
+    console.log("workflow set");
+  }
+
+  menuSizeValue: any;
+  @Input()
+  get menuSize() {
+    return this.menuSizeValue;
+  }
+  set menuSize(val) {
+    this.menuSizeValue = val;
+    if (this.isViewInit) {
+      this.directiveRef.update();
+      console.log("RemenuSized");
+    }
+    console.log("isViewInit", this.isViewInit);
+    console.log("menuSize set");
+  }
+
+  isViewInit: boolean;
+
+  @Input() subjects;
+
   constructor(
     private ngZone: NgZone,
     private menuService: MenuService,
     private renderer: Renderer,
     private subjectService: SubjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Self() private element: ElementRef
   ) { }
 
+
   ngAfterViewInit() {
-    this.menuService.animationStart$.subscribe((x) => {
-      console.log("AAAA");
-      for (let i = 0; i < 1000; i = i + 100) {
-        setTimeout(() => {
-          this.directiveRef.update();
-        }, i);
-      }
-    });
-
-
-
-    // this.renderer.setElementStyle(this.statusListEl.nativeElement, 'height', (this.statusListEl.nativeElement.offsetHeight - this.topEl.nativeElement.offsetHeight)+'px');
+    this.isViewInit = true;
+    this.directiveRef.update();
   }
 
   ngOnInit() {
