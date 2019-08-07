@@ -12,15 +12,24 @@
       <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }">
         <i class="fas fa-grip-lines-vertical"></i>
       </div>
-      <app-side-menu [options]="options" (onNodeMove)="handleNodeMove($event)" [(nodes)]="nodes"
-        (onAddFolderSelect)="handleAddFolderSelect($event)"></app-side-menu>
+      <app-side-menu (onActivate)="handleSubjectSelected($event)" [options]="options" (onNodeMove)="handleNodeMove($event)"
+        [(nodes)]="nodes" (onAddFolderSelect)="handleAddFolderSelect($event)"></app-side-menu>
 
     </div>
 
     <div class="cont-wrapper">
       <div class="content-wrapper">
-        fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf fasfsafsaf
-        fasfsafsaf fasfsafsaf fasfsafsaf
+        <p-breadcrumb [model]="brItems" [home]="home"></p-breadcrumb>
+        <p-tabMenu [activeItem]="activeTabItem" [model]="tabItems">
+          <ng-template pTemplate="item" let-item let-i="index">
+            <div style="position: relative; text-align: center; min-width: 10em" (click)="handleTabClick(item)">
+              <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
+              <div class="ui-menuitem-text">
+                {{item.label}}
+              </div>
+            </div>
+          </ng-template>
+        </p-tabMenu>
         <router-outlet></router-outlet>
 
       </div>

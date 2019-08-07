@@ -1,0 +1,63 @@
+<!-- <div #statusList class="status-list" cdkDropListGroup>
+  <div class="swiper-container" [swiper]="swiperConfig">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let st of project.statuses">
+        <pyu-status-panel [status]=st (onTaskSelected)="handleTaskSelected($event)"></pyu-status-panel>
+      </div>
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev swpb" style="left:0">
+      <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
+    </div>
+    <div class="swiper-button-next swpb" style="right:0">
+      <fa-icon [icon]="icons.faChevronRight"></fa-icon>
+    </div>
+  </div>
+</div> -->
+
+
+<div #statusList class="status-list" cdkDropListGroup>
+  <div class="swiper-container" [swiper]="swiperConfig">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=1></pyu-status-panel>
+
+      </div>
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=2></pyu-status-panel>
+      </div>
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=3></pyu-status-panel>
+      </div>
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=4></pyu-status-panel>
+      </div>
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=5></pyu-status-panel>
+      </div>
+      <div class="swiper-slide">
+
+        <pyu-status-panel [statusId]=6></pyu-status-panel>
+      </div>
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev swpb" style="left:0">
+      <fa-icon [icon]="icons.faChevronLeft"></fa-icon>
+    </div>
+    <div class="swiper-button-next swpb" style="right:0">
+      <fa-icon [icon]="icons.faChevronRight"></fa-icon>
+    </div>
+  </div>
+
+</div>

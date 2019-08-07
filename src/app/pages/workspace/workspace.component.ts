@@ -1,10 +1,11 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 import { DomainService } from '../../services/domain.service';
 import { SubjectService } from '../../services/subject.service';
 import { ITreeOptions } from 'angular-tree-component';
 import { SubjectTypes } from 'src/app/enums';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'pyu-workspace',
@@ -16,6 +17,8 @@ export class WorkspaceComponent implements OnInit {
   //#region Props
   public selectedMenuSubject;
   public workspaceId: number;
+  public selectedFolderId: number;
+  public selectedFolderAncestors;
   public nodes = [];
   public style: object = {};
   public display = {
@@ -34,12 +37,20 @@ export class WorkspaceComponent implements OnInit {
     getChildren: this.getChildren.bind(this),
   };
 
+
+  public brItems: any[] = [];
+  public tabItems: any[];
+  public activeTabItem;
+
+  public selectedFolder
+
   //#endregion
 
   constructor(
     private route: ActivatedRoute,
     private domainService: DomainService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private router: Router
   ) { }
 
   //#region Life Cycle
@@ -51,6 +62,29 @@ export class WorkspaceComponent implements OnInit {
       console.log(this.workspaceId);
       this.fetchNodes();
     });
+
+    this.tabItems = [
+      { label: 'Kanban', route: 'kanban', icon: 'far fa-clipboard' },
+      { label: 'Table', route: 'table', icon: 'fas fa-table' },
+      { label: 'Gantt', route: 'gantt', icon: 'fa fa-stream' },
+      { label: 'TimeLog', route: 'timelog', icon: 'fas fa-history' },
+      { label: 'Analytics', route: 'analytics', icon: 'fas fa-chart-line' }
+    ];
+
+    this.route.firstChild.params.pipe().subscribe(routeParams => {
+      console.log(routeParams);
+      if (routeParams.folderId !== undefined) {
+        this.selectedFolderId = routeParams.folderId;
+        console.log(this.selectedFolderId);
+        this.subjectService.getAncestorsTree(this.selectedFolderId).subscribe((res) => {
+          this.selectedFolderAncestors = this.populateAncestors(res.data);
+          console.log("ANCESTOR TREE", this.selectedFolderAncestors);
+          this.updateBreadCrumbs();
+        });
+      }
+    });
+
+    // this.activeTabItem = this.tabItems[0];
   }
 
   //#endregion
@@ -88,6 +122,16 @@ export class WorkspaceComponent implements OnInit {
       }
       this.bindNewSubjectToParent(this.nodes[i], e);
     }
+  }
+
+  handleTabClick(e) {
+    console.log(e);
+    //HARD-CODING folder
+    this.router.navigate([`/workspace/${this.workspaceId}/folder/1/${e.route}`])
+  }
+  //HARD-CODING kanban
+  handleSubjectSelected(e) {
+    this.router.navigate([`/workspace/${this.workspaceId}/folder/${e.node.data.subjectId}/kanban`])
   }
 
   //#endregion
@@ -145,6 +189,47 @@ export class WorkspaceComponent implements OnInit {
       }
       this.bindNewSubjectToParent(root.children[i], newSubject);
     }
+  }
+
+  private populateAncestors(flatList) {
+    let inProgress = true;
+    let leaf;
+    let root = (flatList as any[]).find(x => x.parentId == null);
+    if (!root)
+      return;
+    leaf = root;
+    while (inProgress) {
+      let child = (flatList as any[]).find(x => x.parentId == leaf.subjectId);
+      if (!child) {
+        inProgress = false;
+      } else {
+        leaf.child = child;
+        leaf = child;
+      }
+    }
+    return root;
+  }
+
+  private updateBreadCrumbs() {
+    let brItems = [];
+    let inProgress = true;
+    let node = this.selectedFolderAncestors;
+    brItems.push({
+      label: node.name,
+      subjectId: node.subjectId
+    });
+    while (inProgress)
+      if (node.child) {
+        node = node.child;
+        brItems.push({
+          label: node.name,
+          subjectId: node.subjectId
+        });
+      }
+      else {
+        inProgress = false;
+      }
+    this.brItems = [...brItems];
   }
 
   public validate(event: ResizeEvent): boolean {

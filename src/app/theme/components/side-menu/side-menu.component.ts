@@ -28,6 +28,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   @Output() onNodeMove = new EventEmitter<any>();
+  @Output() onActivate = new EventEmitter<any>();
 
   @Input() options: ITreeOptions;
 

@@ -4,7 +4,7 @@
     <input type="text" class="search" placeholder="Ara">
   </div>
 
-  <tree-root #tree [nodes]="nodes" [options]="options" (moveNode)="handleNodeMove($event)">
+  <tree-root #tree [nodes]="nodes" [options]="options" (activate)="onActivate.emit($event)" (moveNode)="handleNodeMove($event)">
     <ng-template #treeNodeTemplate let-node let-index="index">
       <div class="cntx" [contextMenu]="basicMenu" [contextMenuSubject]="node">
 
