@@ -52,6 +52,19 @@ export class WorkspaceComponent implements OnInit {
 
   public menusize;
 
+  public displaySideMenuValue = true;
+  get displaySideMenu() {
+    return this.displaySideMenuValue;
+  }
+  set displaySideMenu(val) {
+    this.displaySideMenuValue = val;
+
+    //HARD-CODING burayı menu displayı doma yansıdığında yap
+    setTimeout(() => {
+      this.menusize = { ...this.menusize, value: 0 };
+    }, 0);
+  }
+
   //#endregion
 
   constructor(
@@ -94,6 +107,7 @@ export class WorkspaceComponent implements OnInit {
     this.style = {
       width: `${event.rectangle.width}px`,
     };
+    //TODO daha mantıklı yap asagiyi
     this.menusize = { ...this.menusize, value: 0 };
   }
 

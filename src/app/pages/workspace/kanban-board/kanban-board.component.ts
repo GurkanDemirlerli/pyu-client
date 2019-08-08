@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { SubjectService } from './../../../services/subject.service';
 import { swiperConfig } from './swiper.config';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer, Input, Output, EventEmitter, Self, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, NgZone, OnDestroy, Renderer, Input, Output, EventEmitter, Self, SimpleChanges, SimpleChange, HostListener } from '@angular/core';
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface
 } from 'ngx-swiper-wrapper';
@@ -26,14 +26,6 @@ export class KanbanBoardComponent implements OnInit {
   public type: string = 'directive';
 
   public disabled: boolean = false;
-  public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
-  ];
   icons = {
     faChevronLeft,
     faChevronRight,
@@ -52,6 +44,16 @@ export class KanbanBoardComponent implements OnInit {
   @ViewChildren(StatusPanelComponent) statusPanelRefs: QueryList<StatusPanelComponent>;
   @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isViewInit = true;
+    let width = this.statusListEl.nativeElement.offsetWidth;
+    console.log("width", width);
+    let spv = Math.round(width / 320);
+    this.swiperConfig = { ...this.swiperConfig, slidesPerView: spv };
+    this.directiveRef.update();
+  }
+
 
   workflowValue: any;
   @Input()
@@ -62,10 +64,7 @@ export class KanbanBoardComponent implements OnInit {
     this.workflowValue = val;
     if (this.isViewInit) {
       this.directiveRef.update();
-      console.log("Resized");
     }
-    console.log("isViewInit", this.isViewInit);
-    console.log("workflow set");
   }
 
   menuSizeValue: any;
@@ -74,13 +73,17 @@ export class KanbanBoardComponent implements OnInit {
     return this.menuSizeValue;
   }
   set menuSize(val) {
+    //HARD-CODING
     this.menuSizeValue = val;
     if (this.isViewInit) {
+      let width = this.statusListEl.nativeElement.offsetWidth;
+      console.log("width", width);
+      let spv = Math.round(width / 312);
+      this.swiperConfig = { ...this.swiperConfig, slidesPerView: spv };
       this.directiveRef.update();
-      console.log("RemenuSized");
+      console.log("SPV", spv);
     }
     console.log("isViewInit", this.isViewInit);
-    console.log("menuSize set");
   }
 
   isViewInit: boolean;
@@ -99,8 +102,23 @@ export class KanbanBoardComponent implements OnInit {
 
   ngAfterViewInit() {
     this.isViewInit = true;
+    let width = this.statusListEl.nativeElement.offsetWidth;
+    console.log("width", width);
+    let spv = Math.round(width / 320);
+    this.swiperConfig = { ...this.swiperConfig, slidesPerView: spv };
     this.directiveRef.update();
   }
+
+  // ngDoCheck() {
+  //   if (this.isViewInit) {
+  //     let width = this.statusListEl.nativeElement.offsetWidth;
+  //     console.log("width", width);
+  //     let spv = Math.round(width / 312);
+  //     this.swiperConfig = { ...this.swiperConfig, slidesPerView: spv };
+  //     this.directiveRef.update();
+  //     console.log("SPV", spv);
+  //   }
+  // }
 
   ngOnInit() {
 

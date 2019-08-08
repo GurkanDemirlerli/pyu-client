@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { faSignInAlt, faUserPlus, faBars, faSearch, faSignOutAlt, faCaretSquareDown } from '@fortawesome/free-solid-svg-icons';
 import { MenuService } from '../services/menu.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -23,6 +23,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ]
 })
 export class HeaderComponent implements OnInit {
+
+  //TODO open close state
+  @Output() onMenuBarClick = new EventEmitter<void>();
+
+
   headerIsOpen = false;
   isMax = true;
   menuState: string;

@@ -2,7 +2,7 @@
   <div class="app-nav-content">
 
     <!--MENU TOGGLE-->
-    <div class="menu-toggle" (click)="toggleMenu()" [@menuToggle]='menuState'>
+    <div class="menu-toggle" (click)="onMenuBarClick.emit()" [@menuToggle]='menuState'>
       <fa-icon [icon]="icons.faBars"></fa-icon>
     </div>
 

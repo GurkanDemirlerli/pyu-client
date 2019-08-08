@@ -1,13 +1,13 @@
 <div class="page-wrapper">
   <div class="row">
     <div class="header-wrapper">
-      <app-header></app-header>
+      <app-header (onMenuBarClick)="displaySideMenu = !displaySideMenu"></app-header>
     </div>
   </div>
 
   <div class="middle-wrapper">
-    <div class="menu-wrapper" mwlResizable [validateResize]="validate()" [enableGhostResize]="true"
-      [resizeEdges]="{right: true}" (resizeEnd)="handleResizeEnd($event)" [ngStyle]="style"
+    <div class="menu-wrapper" [class.display-none]="!displaySideMenu" mwlResizable [validateResize]="validate()"
+      [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="handleResizeEnd($event)" [ngStyle]="style"
       [resizeSnapGrid]="{ left: 5, right: 5 }">
       <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }">
         <i class="fas fa-grip-lines-vertical"></i>
@@ -23,8 +23,10 @@
 
         <!-- <router-outlet></router-outlet> -->
         <ng-container *ngIf="selectedFolderId" [ngSwitch]="folderDisplayType">
-          <p-breadcrumb [model]="brItems" [home]="home"></p-breadcrumb>
-          <p-tabMenu [activeItem]="activeTabItem" [model]="tabItems">
+          <div class="folder-nav">
+
+            <p-breadcrumb id="brCrumb" [model]="brItems" [home]="home"></p-breadcrumb>
+            <!-- <p-tabMenu [activeItem]="activeTabItem" [model]="tabItems">
             <ng-template pTemplate="item" let-item let-i="index">
               <div style="position: relative; text-align: center; min-width: 10em" (click)="handleTabClick(item)">
                 <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
@@ -33,7 +35,35 @@
                 </div>
               </div>
             </ng-template>
-          </p-tabMenu>
+          </p-tabMenu> -->
+            <ul class="nav nav-tabs view-tabs">
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'kanban'"
+                  (click)="folderDisplayType='kanban'">Kanban</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'table'"
+                  (click)="folderDisplayType='table'">Table</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'gantt'"
+                  (click)="folderDisplayType='gantt'">Gantt</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'timelog'"
+                  (click)="folderDisplayType='timelog'">TimeLog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'analytics'"
+                  (click)="folderDisplayType='analytics'">Analytics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="folderDisplayType == 'historylog'"
+                  (click)="folderDisplayType='historylog'">HistoryLog</a>
+              </li>
+            </ul>
+          </div>
+
           <pyu-kanban-board [workflow]="selectedFolderWorkflow" [menuSize]="menusize" *ngSwitchCase="'kanban'">
           </pyu-kanban-board>
           <pyu-table-view *ngSwitchCase="'table'"></pyu-table-view>
